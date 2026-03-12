@@ -1,17 +1,4 @@
 #!/usr/bin/env python3
-"""
-build.py — Legge ricette.txt e genera index.html
-Formato supportato:
-  Titolo
-  Titolo | Note su una riga
-  ---
-  Titolo
-  ingrediente 1
-  ingrediente 2
-  procedimento...
-  ---
-"""
-
 import json, re, sys
 from pathlib import Path
 
@@ -20,12 +7,12 @@ INPUT_FILE   = Path("ricette.txt")
 OUTPUT_FILE  = Path("index.html")
 
 CATEGORY_RULES = [
-    ("Dolci & Dessert",         r"torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|zuppetta di fragole|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta"),
+    ("Dolci & Dessert",         r"torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|zuppetta di fragole|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti"),
     ("Pizza & Focaccia",        r"pizza|focaccia|schiacciata"),
     ("Tacos & Street Food",     r"tacos|taco|nachos|cono|coni|tramezzini"),
-    ("Panini & Piadine",        r"panino|piadina|bun |burger"),
+    ("Panini & Piadine",        r"panino|piadina|bun |burger|tartina"),
     ("Primi Piatti",            r"pasta|spaghetti|spaghetto|tagliatelle|pappardelle|rigatoni|paccheri|mezze maniche|tonnarelli|risotto|gnocchi|lasagne|ravioli|tortelli|cappellacci|passatelli|cous cous|riso |minestra|zuppa di|gnocco"),
-    ("Secondi Piatti",          r"filetto|polpo|polpette|cozze fritte|cavolo cappuccio|bocconcini di pollo|jarret|fegatini|arancina|arancine|cecina gamberi|cannolo al nero|spaghetto mayo|tonno cbt|maialino|passata di ceci|polenta baccalà|polenta nero|cozze pesto"),
+    ("Secondi Piatti",          r"filetto|polpo|polpette|cozze fritte|cavolo cappuccio|bocconcini di pollo|jarret|fegatini|arancina|arancine|cecina gamberi|cannolo al nero|spaghetto mayo|tonno cbt|maialino|passata di ceci|polenta baccalà|polenta nero|cozze pesto|cavolo cappuccio viola"),
     ("Zuppe & Vellutate",       r"zuppetta|zuppa|crema di|vellutata|chowder|brodetto|brodo|minestra riso|passata"),
     ("Antipasti & Stuzzichini", r".*"),
 ]
@@ -63,14 +50,12 @@ CAT_GRADIENTS = {
     "Zuppe & Vellutate":       ["#0A2E3D", "#1A8099"],
 }
 
-
 def categorize(title):
     t = title.lower()
     for cat, pattern in CATEGORY_RULES:
         if re.search(pattern, t):
             return cat
     return "Antipasti & Stuzzichini"
-
 
 def unsplash_query(title):
     replacements = {
@@ -92,24 +77,24 @@ def unsplash_query(title):
             return en + " food photography"
     return " ".join(title.split()[:3]) + " italian food photography"
 
-
 def parse_recipes(text):
     """
-    Supporta due formati:
-    1. Una riga: Titolo | note opzionali
-    2. Blocco separato da ---:
+    Formato supportato:
+    1. Una ricetta per riga: Titolo
+    2. Con note inline:      Titolo | note su una riga
+    3. Blocco multiriga:
+       ---
        Titolo
-       corpo della ricetta (ingredienti, procedimento)
+       riga 1 note
+       riga 2 note
        ---
     """
     recipes = []
     seen = set()
     rid = 1
-
-    # Normalizza fine riga
     lines = text.splitlines()
-
     i = 0
+
     while i < len(lines):
         line = lines[i].strip()
 
@@ -118,56 +103,44 @@ def parse_recipes(text):
             i += 1
             continue
 
-        # Separatore di blocco
+        # Inizio blocco multiriga ---
         if line == "---":
             i += 1
-            continue
-
-        # Controlla se le righe successive (fino a ---) formano un blocco
-        # Raccogli righe del blocco
-        block_lines = []
-        j = i
-        while j < len(lines):
-            l = lines[j].strip()
-            if l == "---":
-                j += 1
-                break
-            if not l and block_lines:
-                # Riga vuota dentro un blocco: potrebbe essere fine blocco se non c'è ---
-                # Guarda avanti: se la prossima riga non vuota è un nuovo titolo, chiudi
-                k = j + 1
-                while k < len(lines) and not lines[k].strip():
-                    k += 1
-                # Considera la riga vuota come fine blocco
-                j = k
-                break
-            if l and not l.startswith("#"):
-                block_lines.append(l)
-            j += 1
-
-        i = j
-
-        if not block_lines:
-            continue
-
-        # Prima riga del blocco = titolo (eventualmente con | per note inline)
-        first = block_lines[0]
-        if "|" in first:
-            parts = first.split("|", 1)
-            title = parts[0].strip()
-            note  = parts[1].strip()
-            body_lines = block_lines[1:]
+            block_lines = []
+            while i < len(lines):
+                l = lines[i].strip()
+                if l == "---":
+                    i += 1
+                    break
+                if not l.startswith("#"):
+                    block_lines.append(l)
+                i += 1
+            if not block_lines:
+                continue
+            first = block_lines[0]
+            if "|" in first:
+                parts = first.split("|", 1)
+                title = parts[0].strip()
+                note = parts[1].strip()
+                body = "\n".join(block_lines[1:])
+                note = (note + "\n" + body).strip() if body else note
+            else:
+                title = first
+                note = "\n".join(block_lines[1:]).strip()
         else:
-            title = first
-            note  = ""
-            body_lines = block_lines[1:]
+            # Riga singola (formato normale)
+            if "|" in line:
+                parts = line.split("|", 1)
+                title = parts[0].strip()
+                note = parts[1].strip()
+            else:
+                title = line
+                note = ""
+            i += 1
 
-        # Se c'è body, uniscilo alla nota
-        if body_lines:
-            body_text = "\n".join(body_lines)
-            note = (note + "\n" + body_text).strip() if note else body_text
+        if not title:
+            continue
 
-        # Deduplica
         key = title.lower()[:40]
         if key in seen:
             continue
@@ -184,7 +157,6 @@ def parse_recipes(text):
         rid += 1
 
     return recipes
-
 
 def build_html(recipes):
     recipes_json = json.dumps(recipes, ensure_ascii=False)
@@ -451,7 +423,6 @@ buildSections();
 </script>
 </body>
 </html>"""
-
 
 def main():
     if not INPUT_FILE.exists():

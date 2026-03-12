@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Mie Ricette</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0e0c;--surface:#1a1915;--surface2:#242320;--accent:#e8a838;--accent2:#d05a2f;--text:#f0ece4;--muted:#9a948a;--border:#2e2c28;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+.hero{position:relative;padding:80px 40px 60px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(232,168,56,.15) 0%,transparent 70%);border-bottom:1px solid var(--border);}
+.hero-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:500;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,7rem);font-weight:900;line-height:.9;letter-spacing:-2px;background:linear-gradient(135deg,var(--text) 40%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px;}
+.hero p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto 40px;line-height:1.7;}
+.stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--accent);}
+.stat-label{font-size:.75rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+.search-wrap{padding:32px 40px;max-width:700px;margin:0 auto;}
+.search-box{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:14px 24px;gap:12px;transition:border-color .2s;}
+.search-box:focus-within{border-color:var(--accent);}
+.search-box input{background:none;border:none;outline:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:1rem;width:100%;}
+.search-box input::placeholder{color:var(--muted);}
+.nav-wrap{padding:0 40px 32px;overflow-x:auto;scrollbar-width:none;}
+.nav-wrap::-webkit-scrollbar{display:none;}
+.nav-tabs{display:flex;gap:8px;width:max-content;}
+.tab-btn{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:10px 20px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.tab-btn:hover{border-color:var(--accent);color:var(--text);}
+.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#0f0e0c;font-weight:600;}
+.tab-count{background:rgba(0,0,0,.2);border-radius:20px;padding:1px 7px;font-size:.75rem;}
+.cat-section{padding:0 40px 60px;display:none;}
+.cat-section.visible{display:block;}
+.cat-header{display:flex;align-items:center;gap:16px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.cat-emoji{font-size:2rem;}
+.cat-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;}
+.cat-count-badge{margin-left:auto;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px;font-size:.8rem;color:var(--muted);}
+.recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+.recipe-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;}
+.recipe-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 40px rgba(0,0,0,.5);}
+.card-img-wrap{position:relative;height:200px;overflow:hidden;}
+.card-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;transition:opacity .5s;}
+.card-img-wrap .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,14,12,.6) 0%,transparent 55%);}
+.card-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+.card-body{padding:20px;}
+.card-cat-label{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;margin-bottom:10px;}
+.card-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;line-height:1.3;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--border);}
+.card-arrow{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0;transition:background .2s,color .2s;}
+.recipe-card:hover .card-arrow{background:var(--accent);color:#0f0e0c;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:24px;width:100%;max-width:760px;overflow:hidden;transform:translateY(20px);transition:transform .3s;margin:auto;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-hero{position:relative;height:300px;overflow:hidden;background:var(--surface2);}
+.modal-hero img{width:100%;height:100%;object-fit:cover;display:none;transition:opacity .5s;}
+.modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,25,21,1) 0%,transparent 60%);}
+.modal-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:background .2s;}
+.modal-close:hover{background:rgba(232,168,56,.8);}
+.modal-content{padding:32px;}
+.modal-cat{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.modal-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:24px;}
+.modal-note{color:var(--muted);font-size:.9rem;line-height:1.7;font-style:italic;background:var(--surface2);border-left:3px solid var(--accent);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:24px;}
+.no-results{text-align:center;padding:80px 40px;color:var(--muted);display:none;}
+.no-results.visible{display:block;}
+@media(max-width:600px){
+  .hero h1{font-size:3rem;}
+  .cat-section,.nav-wrap,.search-wrap{padding-left:20px;padding-right:20px;}
+  .recipe-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-label">La mia cucina</p>
+  <h1>Le Mie<br>Ricette</h1>
+  <p>Una collezione personale in continuo aggiornamento — idee, esperimenti e grandi classici.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">111</div><div class="stat-label">Ricette</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categorie</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Gusto</div></div>
+  </div>
+</header>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Cerca una ricetta..." oninput="filterRecipes(this.value)">
+  </div>
+</div>
+
+<div class="nav-wrap"><div class="nav-tabs" id="navTabs"></div></div>
+<div id="sectionsContainer"></div>
+<div class="no-results" id="noResults">
+  <div style="font-size:3rem;margin-bottom:16px">🔍</div>
+  <p>Nessuna ricetta trovata.</p>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-hero" id="modalHero">
+      <div id="modalHeroPlaceholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;"></div>
+      <img id="modalPhoto" alt="" onload="this.style.display='block';this.style.opacity=1">
+      <div class="modal-hero-overlay"></div>
+      <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''">&times;</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-cat" id="modalCat"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-note" id="modalNote"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const RECIPES   = [{"id": 1, "title": "Tonno marinato", "cat": "Antipasti & Stuzzichini", "query": "Tonno marinato italian food"}, {"id": 2, "title": "Sformatini di parmigiano", "cat": "Antipasti & Stuzzichini", "query": "Sformatini di parmigiano italian food"}, {"id": 3, "title": "Caponata di tonno", "cat": "Antipasti & Stuzzichini", "query": "Caponata di tonno italian food"}, {"id": 4, "title": "Gamberi in pasta kataifi", "cat": "Primi Piatti", "query": "shrimp seafood food photography"}, {"id": 5, "title": "Cous cous di pesce", "cat": "Primi Piatti", "query": "Cous cous di italian food"}, {"id": 6, "title": "Cappellacci d'anatra con salsa di pere e balsamico", "cat": "Primi Piatti", "query": "Cappellacci d'anatra con italian food"}, {"id": 7, "title": "Lasagne croccanti al caprino", "cat": "Primi Piatti", "query": "lasagna baked food photography"}, {"id": 8, "title": "Gnocchi di patate carciofi e fonduta di parmigiano", "cat": "Primi Piatti", "query": "gnocchi potato food photography"}, {"id": 9, "title": "Spaghetti cozze pomodoro e peperoncino", "cat": "Primi Piatti", "query": "spaghetti pasta food photography"}, {"id": 10, "title": "Tacos pollo chipotle", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 11, "title": "Crocchetta di baccalà e caprino", "cat": "Antipasti & Stuzzichini", "query": "salt cod fish food photography"}, {"id": 12, "title": "Patate fritte tartufo e parmigiano", "cat": "Antipasti & Stuzzichini", "query": "Patate fritte tartufo italian food"}, {"id": 13, "title": "Cheese burger roll", "cat": "Panini & Piadine", "query": "Cheese burger roll italian food"}, {"id": 14, "title": "Cupcake", "cat": "Dolci & Dessert", "query": "cupcake frosting food photography"}, {"id": 15, "title": "Chowder di granchio", "cat": "Zuppe & Vellutate", "query": "Chowder di granchio italian food"}, {"id": 16, "title": "Jarret du porc", "cat": "Secondi Piatti", "query": "Jarret du porc italian food"}, {"id": 17, "title": "Bocconcini di pollo soia e zenzero", "cat": "Secondi Piatti", "query": "Bocconcini di pollo italian food"}, {"id": 18, "title": "Zuppetta di patate vongole cozze e fasolari", "cat": "Zuppe & Vellutate", "query": "mussels seafood food photography"}, {"id": 19, "title": "Filetto di maialino sous vide al mango", "cat": "Secondi Piatti", "query": "Filetto di maialino italian food"}, {"id": 20, "title": "Polenta nera al nero di seppia", "cat": "Antipasti & Stuzzichini", "query": "Polenta nera al italian food"}, {"id": 21, "title": "Crostino nduja e gorgonzola", "cat": "Antipasti & Stuzzichini", "query": "Crostino nduja e italian food"}, {"id": 22, "title": "Bun pulled pork", "cat": "Panini & Piadine", "query": "Bun pulled pork italian food"}, {"id": 23, "title": "Spaghetti crema di pistacchio e tartare di tonno", "cat": "Primi Piatti", "query": "spaghetti pasta food photography"}, {"id": 24, "title": "Zuppetta di fragole e cremoso al pistacchio", "cat": "Dolci & Dessert", "query": "Zuppetta di fragole italian food"}, {"id": 25, "title": "Risotto asiago e speck", "cat": "Primi Piatti", "query": "risotto italian food photography"}, {"id": 26, "title": "Pizza bianca stracciatella puntarelle e acciughe", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 27, "title": "Tortelli cacio pepe e crema di pere", "cat": "Primi Piatti", "query": "Tortelli cacio pepe italian food"}, {"id": 28, "title": "Tartare di salmone stracciatella e tartufo", "cat": "Antipasti & Stuzzichini", "query": "Tartare di salmone italian food"}, {"id": 29, "title": "Paccheri fritti stracciatella e alici", "cat": "Primi Piatti", "query": "Paccheri fritti stracciatella italian food"}, {"id": 30, "title": "Spaghetti in carrozza", "cat": "Primi Piatti", "query": "spaghetti pasta food photography"}, {"id": 31, "title": "Risotto cacio pepe e carciofo croccante", "cat": "Primi Piatti", "query": "risotto italian food photography"}, {"id": 32, "title": "Pizza squacquerone fiori di zucca e alici", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 33, "title": "Fondo di carciofo e baccalà mantecato", "cat": "Antipasti & Stuzzichini", "query": "salt cod fish food photography"}, {"id": 34, "title": "Mezze maniche pancetta fave e pecorino", "cat": "Primi Piatti", "query": "Mezze maniche pancetta italian food"}, {"id": 35, "title": "Carpaccio di ricciola riccio e wasabi", "cat": "Antipasti & Stuzzichini", "query": "Carpaccio di ricciola italian food"}, {"id": 36, "title": "Aglio olio peperoncino burrata e tartare di gambero", "cat": "Antipasti & Stuzzichini", "query": "Aglio olio peperoncino italian food"}, {"id": 37, "title": "Panna cotta alle acciughe", "cat": "Dolci & Dessert", "query": "Panna cotta alle italian food"}, {"id": 38, "title": "Cacio e pepe in bisque di astice", "cat": "Antipasti & Stuzzichini", "query": "Cacio e pepe italian food"}, {"id": 39, "title": "Tacos di astice e guacamole", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 40, "title": "Tacos di capasante e guacamole", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 41, "title": "Tacos di salmone teriyaki", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 42, "title": "Tacos di polpo e patata", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 43, "title": "Tacos nduja scamorza e cicoria", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 44, "title": "Tramezzini cipolle caramellate e fonduta", "cat": "Tacos & Street Food", "query": "Tramezzini cipolle caramellate italian food"}, {"id": 45, "title": "Sorbetto al carciofo", "cat": "Dolci & Dessert", "query": "Sorbetto al carciofo italian food"}, {"id": 46, "title": "Ravioli di cozze", "cat": "Primi Piatti", "query": "mussels seafood food photography"}, {"id": 47, "title": "Gambero in kataifi", "cat": "Antipasti & Stuzzichini", "query": "Gambero in kataifi italian food"}, {"id": 48, "title": "Ricciola sesamo zenzero e edamame", "cat": "Antipasti & Stuzzichini", "query": "Ricciola sesamo zenzero italian food"}, {"id": 49, "title": "Bruschetta cacio a cavallo cipolla e acciughe", "cat": "Antipasti & Stuzzichini", "query": "Bruschetta cacio a italian food"}, {"id": 50, "title": "Pizza bianca provola cipolla e acciughe", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 51, "title": "Pizza cacio e pepe", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 52, "title": "Zuppa di patate ceci e polpo", "cat": "Primi Piatti", "query": "soup italian food photography"}, {"id": 53, "title": "Minestra di riso latte e castagne", "cat": "Primi Piatti", "query": "Minestra di riso italian food"}, {"id": 54, "title": "Risotto salsiccia lucanica e porro", "cat": "Primi Piatti", "query": "risotto italian food photography"}, {"id": 55, "title": "Cavolo cappuccio viola polpo e avocado", "cat": "Secondi Piatti", "query": "octopus grilled food photography"}, {"id": 56, "title": "Castagnaccio | 500g farina di castagne, 650ml acqua, 1", "cat": "Dolci & Dessert", "query": "chestnut cake rustic food photography"}, {"id": 57, "title": "Fegatini di pollo | 400g fegatini, soffritto, 10 min, brodo, vino bianco, frullare, pasta d'acciughe", "cat": "Primi Piatti", "query": "Fegatini di pollo italian food"}, {"id": 58, "title": "Cecina con gamberi e ricotta", "cat": "Antipasti & Stuzzichini", "query": "shrimp seafood food photography"}, {"id": 59, "title": "Riso nero seppia e gambero con cima di rapa", "cat": "Primi Piatti", "query": "Riso nero seppia italian food"}, {"id": 60, "title": "Passatelli in brodetto di pesce", "cat": "Primi Piatti", "query": "Passatelli in brodetto italian food"}, {"id": 61, "title": "Cannolo al nero di seppia con baccalà e bottarga", "cat": "Secondi Piatti", "query": "salt cod fish food photography"}, {"id": 62, "title": "Panino mortadella parmigiano carciofo e tartufo", "cat": "Panini & Piadine", "query": "gourmet sandwich food photography"}, {"id": 63, "title": "Crema di patate carciofo e bottarga", "cat": "Zuppe & Vellutate", "query": "Crema di patate italian food"}, {"id": 64, "title": "Bicchiere di frutti di bosco crema al lime e crumble", "cat": "Dolci & Dessert", "query": "Bicchiere di frutti italian food"}, {"id": 65, "title": "Polenta nera calamaretti", "cat": "Antipasti & Stuzzichini", "query": "Polenta nera calamaretti italian food"}, {"id": 66, "title": "Polenta con baccalà e vongole", "cat": "Antipasti & Stuzzichini", "query": "salt cod fish food photography"}, {"id": 67, "title": "Passata di ceci spinaci e baccalà", "cat": "Secondi Piatti", "query": "salt cod fish food photography"}, {"id": 68, "title": "Risotto cavolo nero gorgonzola e cozze", "cat": "Primi Piatti", "query": "risotto italian food photography"}, {"id": 69, "title": "Tonnarelli cacio pepe e cozze", "cat": "Primi Piatti", "query": "mussels seafood food photography"}, {"id": 70, "title": "Tartina polenta nera baccalà e bottarga", "cat": "Antipasti & Stuzzichini", "query": "salt cod fish food photography"}, {"id": 71, "title": "Tartina polenta bianca e seppie", "cat": "Antipasti & Stuzzichini", "query": "Tartina polenta bianca italian food"}, {"id": 72, "title": "Tartina polenta e polpo", "cat": "Secondi Piatti", "query": "octopus grilled food photography"}, {"id": 73, "title": "Bruschetta burro e Chianti", "cat": "Antipasti & Stuzzichini", "query": "Bruschetta burro e italian food"}, {"id": 74, "title": "Bruschetta fonduta di fontina e tartufo", "cat": "Antipasti & Stuzzichini", "query": "Bruschetta fonduta di italian food"}, {"id": 75, "title": "Bruschetta spuma di mortadella e pistacchio", "cat": "Antipasti & Stuzzichini", "query": "Bruschetta spuma di italian food"}, {"id": 76, "title": "Biscotto cocco bavarese cioccolato popcorn e caramello", "cat": "Dolci & Dessert", "query": "Biscotto cocco bavarese italian food"}, {"id": 77, "title": "Pizza zucca guanciale e bufala", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 78, "title": "Ravioli cime di rapa e caciocavallo", "cat": "Primi Piatti", "query": "ravioli pasta food photography"}, {"id": 79, "title": "Piadina brie carciofini e prosciutto", "cat": "Panini & Piadine", "query": "flatbread italian food photography"}, {"id": 80, "title": "Nachos con guacamole", "cat": "Tacos & Street Food", "query": "Nachos con guacamole italian food"}, {"id": 81, "title": "Cecina spuma di mortadella", "cat": "Antipasti & Stuzzichini", "query": "Cecina spuma di italian food"}, {"id": 82, "title": "Focaccia crudo burrata e fico", "cat": "Pizza & Focaccia", "query": "focaccia bread food photography"}, {"id": 83, "title": "Tacos acciughe e squacquerone", "cat": "Tacos & Street Food", "query": "tacos street food food photography"}, {"id": 84, "title": "Coni piadina tartare di tonno", "cat": "Tacos & Street Food", "query": "flatbread italian food photography"}, {"id": 85, "title": "Coni piadina tartare di carne", "cat": "Tacos & Street Food", "query": "flatbread italian food photography"}, {"id": 86, "title": "Tartare di manzo ricotta e carasau", "cat": "Antipasti & Stuzzichini", "query": "Tartare di manzo italian food"}, {"id": 87, "title": "Arancina mortadella e pistacchio", "cat": "Secondi Piatti", "query": "arancini sicilian food photography"}, {"id": 88, "title": "Arancina sarde e finocchietto", "cat": "Secondi Piatti", "query": "arancini sicilian food photography"}, {"id": 89, "title": "Risotto pecorino fichi e prosciutto", "cat": "Primi Piatti", "query": "risotto italian food photography"}, {"id": 90, "title": "Pizza zucca provola e speck", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 91, "title": "Pan di Spagna mousse di yogurt e mango", "cat": "Dolci & Dessert", "query": "Pan di Spagna italian food"}, {"id": 92, "title": "Sablé alla nocciola bignè chantilly e gianduia", "cat": "Dolci & Dessert", "query": "Sablé alla nocciola italian food"}, {"id": 93, "title": "Pizza provola crema di cipolla e pancetta", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 94, "title": "Sorbetto al melograno con mousse di yogurt greco", "cat": "Dolci & Dessert", "query": "Sorbetto al melograno italian food"}, {"id": 95, "title": "Zabaione salato alla mazzancolla", "cat": "Antipasti & Stuzzichini", "query": "Zabaione salato alla italian food"}, {"id": 96, "title": "Polenta nera con seppie", "cat": "Antipasti & Stuzzichini", "query": "Polenta nera con italian food"}, {"id": 97, "title": "Pizza crema di zucca provola e guanciale", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 98, "title": "Pizza gorgonzola e castagne", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 99, "title": "Crema di parmigiano carciofo e guanciale", "cat": "Zuppe & Vellutate", "query": "Crema di parmigiano italian food"}, {"id": 100, "title": "Gnocco cima di rapa e acciughe", "cat": "Primi Piatti", "query": "Gnocco cima di italian food"}, {"id": 101, "title": "Risotto nduja provola e cedro", "cat": "Primi Piatti", "query": "risotto italian food photography"}, {"id": 102, "title": "Perle di parmigiano con asparagi", "cat": "Antipasti & Stuzzichini", "query": "Perle di parmigiano italian food"}, {"id": 103, "title": "Polpette di asparagi e ricotta", "cat": "Secondi Piatti", "query": "Polpette di asparagi italian food"}, {"id": 104, "title": "Fiore di zucca in tempura con pomodorini e acciughe", "cat": "Antipasti & Stuzzichini", "query": "Fiore di zucca italian food"}, {"id": 105, "title": "Spaghetto mayo aglio peperone crusco e spuma di prezzemolo", "cat": "Primi Piatti", "query": "Spaghetto mayo aglio italian food"}, {"id": 106, "title": "Tonno cbt pomodorini confit", "cat": "Secondi Piatti", "query": "Tonno cbt pomodorini italian food"}, {"id": 107, "title": "Cozze fritte pecorino e menta", "cat": "Secondi Piatti", "query": "mussels seafood food photography"}, {"id": 108, "title": "Pizza zucca cavolo nero e lardo", "cat": "Pizza & Focaccia", "query": "pizza italian food photography"}, {"id": 109, "title": "Cozze pesto pecorino e carasau", "cat": "Secondi Piatti", "query": "mussels seafood food photography"}, {"id": 110, "title": "Frolla al cioccolato con marmellata di agrumi", "cat": "Dolci & Dessert", "query": "Frolla al cioccolato italian food"}, {"id": 111, "title": "Ostrica al vapore con patata e friggitello", "cat": "Antipasti & Stuzzichini", "query": "Ostrica al vapore italian food"}];
+const CATS      = ["Antipasti & Stuzzichini", "Primi Piatti", "Tacos & Street Food", "Panini & Piadine", "Dolci & Dessert", "Zuppe & Vellutate", "Secondi Piatti", "Pizza & Focaccia"];
+const CAT_EMOJI = {"Antipasti & Stuzzichini": "🫒", "Primi Piatti": "🍝", "Secondi Piatti": "🥩", "Pizza & Focaccia": "🍕", "Panini & Piadine": "🥖", "Tacos & Street Food": "🌮", "Dolci & Dessert": "🍮", "Zuppe & Vellutate": "🍲"};
+const CAT_COLORS= {"Antipasti & Stuzzichini": "#e8a838", "Primi Piatti": "#d05a2f", "Secondi Piatti": "#4a9e6b", "Pizza & Focaccia": "#6b8fd1", "Panini & Piadine": "#c75e8a", "Tacos & Street Food": "#a06bdb", "Dolci & Dessert": "#e86b6b", "Zuppe & Vellutate": "#5bb8c4"};
+const CAT_GRADS = {"Antipasti & Stuzzichini": ["#8B1A1A", "#D4956A"], "Primi Piatti": ["#5C1A0A", "#C4622D"], "Secondi Piatti": ["#0A3D1F", "#2D8653"], "Pizza & Focaccia": ["#1A1A5E", "#4A6ED4"], "Panini & Piadine": ["#4A0A5E", "#A855C7"], "Tacos & Street Food": ["#3D1A00", "#B05A1A"], "Dolci & Dessert": ["#5E0A2E", "#D45A8A"], "Zuppe & Vellutate": ["#0A2E3D", "#1A8099"]};
+const UNSPLASH_KEY = "f_95Zpj5cCokVF6wE_wzrIZv4SloLmioUiyD5_BM3ZU";
+
+// ── Unsplash lazy loader ──────────────────────────────────────────────────
+const photoCache = {};
+async function fetchPhoto(rid, query) {
+  if (photoCache[rid]) return photoCache[rid];
+  try {
+    const r = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=3&orientation=landscape&client_id=${UNSPLASH_KEY}`);
+    const d = await r.json();
+    if (d.results && d.results.length) {
+      const url = d.results[rid % d.results.length].urls.regular + "&w=400&h=260&fit=crop&auto=format&q=80";
+      photoCache[rid] = url;
+      return url;
+    }
+  } catch(e) {}
+  return null;
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const img = e.target;
+    const rid = +img.dataset.rid;
+    const query = img.dataset.query;
+    fetchPhoto(rid, query).then(url => {
+      if (url) { img.src = url; img.onload = () => { img.style.display='block'; img.style.opacity=1; img.previousElementSibling.style.opacity=0; } }
+    });
+    observer.unobserve(img);
+  });
+}, {rootMargin:'300px'});
+
+// ── Build UI ─────────────────────────────────────────────────────────────
+function buildTabs() {
+  const nav = document.getElementById('navTabs');
+  const all = document.createElement('button');
+  all.className = 'tab-btn active';
+  all.innerHTML = `Tutte <span class="tab-count">${RECIPES.length}</span>`;
+  all.onclick = () => showCat('all', all);
+  nav.appendChild(all);
+  CATS.forEach(cat => {
+    const n = RECIPES.filter(r => r.cat === cat).length;
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.innerHTML = `${CAT_EMOJI[cat]} ${cat} <span class="tab-count">${n}</span>`;
+    btn.onclick = () => showCat(cat, btn);
+    nav.appendChild(btn);
+  });
+}
+
+function buildSections() {
+  const container = document.getElementById('sectionsContainer');
+  // All
+  const allSec = document.createElement('div');
+  allSec.className = 'cat-section visible';
+  allSec.dataset.cat = 'all';
+  CATS.forEach(cat => allSec.appendChild(buildGroup(cat, RECIPES.filter(r => r.cat === cat))));
+  container.appendChild(allSec);
+  // Individual
+  CATS.forEach(cat => {
+    const sec = document.createElement('div');
+    sec.className = 'cat-section';
+    sec.dataset.cat = cat;
+    sec.appendChild(buildGroup(cat, RECIPES.filter(r => r.cat === cat)));
+    container.appendChild(sec);
+  });
+}
+
+function buildGroup(cat, recipes) {
+  const div = document.createElement('div');
+  div.style.marginBottom = '60px';
+  div.innerHTML = `<div class="cat-header"><span class="cat-emoji">${CAT_EMOJI[cat]}</span><h2 class="cat-title">${cat}</h2><span class="cat-count-badge">${recipes.length} ricette</span></div>`;
+  const grid = document.createElement('div');
+  grid.className = 'recipe-grid';
+  recipes.forEach(r => grid.appendChild(buildCard(r)));
+  div.appendChild(grid);
+  return div;
+}
+
+function buildCard(r) {
+  const card = document.createElement('div');
+  card.className = 'recipe-card';
+  card.dataset.title = r.title.toLowerCase();
+  card.dataset.cat   = r.cat.toLowerCase();
+  const color = CAT_COLORS[r.cat] || '#e8a838';
+  const [g1, g2] = CAT_GRADS[r.cat] || ['#1a1915','#3a3930'];
+  card.innerHTML = `
+    <div class="card-img-wrap" style="background:linear-gradient(135deg,${g1},${g2})">
+      <div class="card-placeholder" style="opacity:.45">${CAT_EMOJI[r.cat]}</div>
+      <img data-rid="${r.id}" data-query="${r.query}" alt="${r.title}">
+      <div class="overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-cat-label"><span class="card-dot" style="background:${color}"></span>${r.cat}</div>
+      <h3 class="card-title">${r.title}</h3>
+    </div>
+    <div class="card-footer">
+      <span style="font-size:.75rem;color:var(--muted)">Clicca per la ricetta</span>
+      <div class="card-arrow">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>`;
+  card.onclick = () => openModal(r);
+  // Register lazy load
+  const img = card.querySelector('img[data-rid]');
+  if (img) observer.observe(img);
+  return card;
+}
+
+function showCat(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cat-section').forEach(s => s.classList.toggle('visible', s.dataset.cat === cat));
+  document.getElementById('searchInput').value = '';
+  document.getElementById('noResults').classList.remove('visible');
+  document.querySelectorAll('.recipe-card').forEach(c => c.style.display = '');
+}
+
+function filterRecipes(val) {
+  const q = val.toLowerCase();
+  let found = 0;
+  document.querySelectorAll('.cat-section').forEach(s => s.classList.toggle('visible', s.dataset.cat === 'all'));
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i === 0));
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    const match = !q || card.dataset.title.includes(q) || card.dataset.cat.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) found++;
+  });
+  document.getElementById('noResults').classList.toggle('visible', found === 0);
+}
+
+function openModal(r) {
+  const [g1,g2] = CAT_GRADS[r.cat] || ['#1a1915','#3a3930'];
+  document.getElementById('modalHeroPlaceholder').textContent = CAT_EMOJI[r.cat];
+  document.getElementById('modalHeroPlaceholder').style.background = `linear-gradient(135deg,${g1},${g2})`;
+  const mp = document.getElementById('modalPhoto');
+  mp.style.display = 'none'; mp.src = '';
+  fetchPhoto(r.id, r.query).then(url => {
+    if (url) { mp.src = url; }
+  });
+  document.getElementById('modalCat').textContent   = `${CAT_EMOJI[r.cat]} ${r.cat}`;
+  document.getElementById('modalTitle').textContent = r.title;
+  document.getElementById('modalNote').textContent  = r.note || 'Ricetta completa disponibile. Clicca le note per i dettagli.';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key==='Escape') { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; } });
+
+buildTabs();
+buildSections();
+</script>
+</body>
+</html>

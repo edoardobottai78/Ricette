@@ -1,0 +1,137 @@
+# ============================================================
+# RICETTE.TXT — Formato di inserimento
+# ============================================================
+# Ogni ricetta va su UNA RIGA.
+# La prima riga di questo file è un commento (inizia con #).
+#
+# FORMATO BASE (solo titolo):
+#   Nome del piatto
+#
+# FORMATO COMPLETO (titolo + note):
+#   Nome del piatto | Note o ingredienti principali
+#
+# ESEMPI:
+#   Spaghetti alle cozze
+#   Risotto al tartufo | Con burro, parmigiano e tartufo nero
+#   Pizza zucca e guanciale
+#   Tacos al polpo | Polpo grigliato, guacamole, cipolla di Tropea
+#
+# REGOLE:
+# - Una ricetta per riga
+# - Righe vuote vengono ignorate
+# - Righe che iniziano con # vengono ignorate (commenti)
+# - Il separatore | è opzionale: tutto dopo | diventa la nota nella scheda
+# - L'ordine non importa: le ricette vengono categorizzate automaticamente
+# ============================================================
+
+Tonno marinato
+Sformatini di parmigiano
+Caponata di tonno
+Gamberi in pasta kataifi
+Cous cous di pesce
+Cappellacci d'anatra con salsa di pere e balsamico
+Lasagne croccanti al caprino
+Gnocchi di patate carciofi e fonduta di parmigiano
+Spaghetti cozze pomodoro e peperoncino
+Tacos pollo chipotle
+Crocchetta di baccalà e caprino
+Patate fritte tartufo e parmigiano
+Cheese burger roll
+Cupcake
+Chowder di granchio
+Jarret du porc
+Bocconcini di pollo soia e zenzero
+Zuppetta di patate vongole cozze e fasolari
+Filetto di maialino sous vide al mango
+Polenta nera al nero di seppia
+Crostino nduja e gorgonzola
+Bun pulled pork
+Spaghetti crema di pistacchio e tartare di tonno
+Zuppetta di fragole e cremoso al pistacchio
+Risotto asiago e speck
+Pizza bianca stracciatella puntarelle e acciughe
+Tortelli cacio pepe e crema di pere
+Tartare di salmone stracciatella e tartufo
+Paccheri fritti stracciatella e alici
+Spaghetti in carrozza
+Risotto cacio pepe e carciofo croccante
+Pizza squacquerone fiori di zucca e alici
+Fondo di carciofo e baccalà mantecato
+Mezze maniche pancetta fave e pecorino
+Carpaccio di ricciola riccio e wasabi
+Aglio olio peperoncino burrata e tartare di gambero
+Panna cotta alle acciughe
+Cacio e pepe in bisque di astice
+Tacos di astice e guacamole
+Tacos di capasante e guacamole
+Tacos di salmone teriyaki
+Tacos di polpo e patata
+Tacos nduja scamorza e cicoria
+Tramezzini cipolle caramellate e fonduta
+Sorbetto al carciofo
+Ravioli di cozze
+Gambero in kataifi
+Ricciola sesamo zenzero e edamame
+Bruschetta cacio a cavallo cipolla e acciughe
+Pizza bianca provola cipolla e acciughe
+Pizza cacio e pepe
+Zuppa di patate ceci e polpo
+Minestra di riso latte e castagne
+Risotto salsiccia lucanica e porro
+Cavolo cappuccio viola polpo e avocado
+Castagnaccio | 500g farina di castagne, 650ml acqua, 1.5 bicchiere latte, 40g olio, forno 170° non ventilato 30-35 min
+Fegatini di pollo | 400g fegatini, soffritto, 10 min, brodo, vino bianco, frullare, pasta d'acciughe
+Cecina con gamberi e ricotta
+Riso nero seppia e gambero con cima di rapa
+Passatelli in brodetto di pesce
+Cannolo al nero di seppia con baccalà e bottarga
+Panino mortadella parmigiano carciofo e tartufo
+Crema di patate carciofo e bottarga
+Bicchiere di frutti di bosco crema al lime e crumble
+Polenta nera calamaretti
+Polenta con baccalà e vongole
+Passata di ceci spinaci e baccalà
+Risotto cavolo nero gorgonzola e cozze
+Tonnarelli cacio pepe e cozze
+Tartina polenta nera baccalà e bottarga
+Tartina polenta bianca e seppie
+Tartina polenta e polpo
+Bruschetta burro e Chianti
+Bruschetta fonduta di fontina e tartufo
+Bruschetta spuma di mortadella e pistacchio
+Biscotto cocco bavarese cioccolato popcorn e caramello
+Pizza zucca guanciale e bufala
+Ravioli cime di rapa e caciocavallo
+Piadina brie carciofini e prosciutto
+Nachos con guacamole
+Cecina spuma di mortadella
+Focaccia crudo burrata e fico
+Tacos acciughe e squacquerone
+Coni piadina tartare di tonno
+Coni piadina tartare di carne
+Tartare di manzo ricotta e carasau
+Arancina mortadella e pistacchio
+Arancina sarde e finocchietto
+Risotto pecorino fichi e prosciutto
+Pizza zucca provola e speck
+Pan di Spagna mousse di yogurt e mango
+Sablé alla nocciola bignè chantilly e gianduia
+Pizza provola crema di cipolla e pancetta
+Sorbetto al melograno con mousse di yogurt greco
+Zabaione salato alla mazzancolla
+Polenta nera con seppie
+Pizza crema di zucca provola e guanciale
+Pizza gorgonzola e castagne
+Crema di parmigiano carciofo e guanciale
+Gnocco cima di rapa e acciughe
+Risotto nduja provola e cedro
+Perle di parmigiano con asparagi
+Polpette di asparagi e ricotta
+Fiore di zucca in tempura con pomodorini e acciughe
+Spaghetto mayo aglio peperone crusco e spuma di prezzemolo
+Tonno cbt pomodorini confit
+Cozze fritte pecorino e menta
+Pizza zucca cavolo nero e lardo
+Cozze pesto pecorino e carasau
+Frolla al cioccolato con marmellata di agrumi
+Ostrica al vapore con patata e friggitello

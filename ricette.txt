@@ -1,8 +1,8 @@
 # ============================================================
-# RICETTE.TXT — Formato di inserimento
+# RICETTE.TXT â Formato di inserimento
 # ============================================================
 # Ogni ricetta va su UNA RIGA.
-# La prima riga di questo file è un commento (inizia con #).
+# La prima riga di questo file Ã¨ un commento (inizia con #).
 #
 # FORMATO BASE (solo titolo):
 #   Nome del piatto
@@ -20,7 +20,7 @@
 # - Una ricetta per riga
 # - Righe vuote vengono ignorate
 # - Righe che iniziano con # vengono ignorate (commenti)
-# - Il separatore | è opzionale: tutto dopo | diventa la nota nella scheda
+# - Il separatore | Ã¨ opzionale: tutto dopo | diventa la nota nella scheda
 # - L'ordine non importa: le ricette vengono categorizzate automaticamente
 # ============================================================
 
@@ -34,7 +34,7 @@ Lasagne croccanti al caprino
 Gnocchi di patate carciofi e fonduta di parmigiano
 Spaghetti cozze pomodoro e peperoncino
 Tacos pollo chipotle
-Crocchetta di baccalà e caprino
+Crocchetta di baccalÃ  e caprino
 Patate fritte tartufo e parmigiano
 Cheese burger roll
 Cupcake
@@ -56,7 +56,7 @@ Paccheri fritti stracciatella e alici
 Spaghetti in carrozza
 Risotto cacio pepe e carciofo croccante
 Pizza squacquerone fiori di zucca e alici
-Fondo di carciofo e baccalà mantecato
+Fondo di carciofo e baccalÃ  mantecato
 Mezze maniche pancetta fave e pecorino
 Carpaccio di ricciola riccio e wasabi
 Aglio olio peperoncino burrata e tartare di gambero
@@ -79,21 +79,21 @@ Zuppa di patate ceci e polpo
 Minestra di riso latte e castagne
 Risotto salsiccia lucanica e porro
 Cavolo cappuccio viola polpo e avocado
-Castagnaccio | 500g farina di castagne, 650ml acqua, 1.5 bicchiere latte, 40g olio, forno 170° non ventilato 30-35 min
+Castagnaccio | 500g farina di castagne, 650ml acqua, 1.5 bicchiere latte, 40g olio, forno 170Â° non ventilato 30-35 min
 Fegatini di pollo | 400g fegatini, soffritto, 10 min, brodo, vino bianco, frullare, pasta d'acciughe
 Cecina con gamberi e ricotta
 Riso nero seppia e gambero con cima di rapa
 Passatelli in brodetto di pesce
-Cannolo al nero di seppia con baccalà e bottarga
+Cannolo al nero di seppia con baccalÃ  e bottarga
 Panino mortadella parmigiano carciofo e tartufo
 Crema di patate carciofo e bottarga
 Bicchiere di frutti di bosco crema al lime e crumble
 Polenta nera calamaretti
-Polenta con baccalà e vongole
-Passata di ceci spinaci e baccalà
+Polenta con baccalÃ  e vongole
+Passata di ceci spinaci e baccalÃ 
 Risotto cavolo nero gorgonzola e cozze
 Tonnarelli cacio pepe e cozze
-Tartina polenta nera baccalà e bottarga
+Tartina polenta nera baccalÃ  e bottarga
 Tartina polenta bianca e seppie
 Tartina polenta e polpo
 Bruschetta burro e Chianti
@@ -115,7 +115,7 @@ Arancina sarde e finocchietto
 Risotto pecorino fichi e prosciutto
 Pizza zucca provola e speck
 Pan di Spagna mousse di yogurt e mango
-Sablé alla nocciola bignè chantilly e gianduia
+SablÃ© alla nocciola bignÃ¨ chantilly e gianduia
 Pizza provola crema di cipolla e pancetta
 Sorbetto al melograno con mousse di yogurt greco
 Zabaione salato alla mazzancolla
@@ -135,3 +135,42 @@ Pizza zucca cavolo nero e lardo
 Cozze pesto pecorino e carasau
 Frolla al cioccolato con marmellata di agrumi
 Ostrica al vapore con patata e friggitello
+Polpette di tofu curry e arachidi | Polpette di tofu con salsa di curry e arachidi
+ Salva la ricetta
+3.37 from 11 votes
+ Preparazione 15 minuti
+ Cottura 15 minuti
+ Tempo totale 30 minuti
+ Porzioni  polpette
+Ingredienti
+Per le polpette
+450 gr tofu
+2 cipollotti
+1 cm zenzero fresco
+1/2 peperoncino di Cayenna fresco (regolatevi in base al grado di piccantezza desiderato)
+2 cucchiai salsa di soia
+2 cucchiai amido di mais
+1 cucchiaio olio di semi (io ho usato sesamo ma potete scegliere quello che preferite)
+sale
+pepe
+farina
+olio di semi di arachide
+Per la salsa di curry e arachidi
+200 ml latte di cocco
+1 cipollotto
+1/2 peperoncino di cayenna fresco
+1 cm zenzero
+2 cucchiaini curry (scegliete il tipo che preferite)
+2 cucchiai pasta di arachidi (o in alternativa 3 cucchiai di arachidi al naturale sbucciate)
+sale
+olio di semi
+coriandolo fresco
+1 lime
+Procedimento
+Mettete il tofu in un canovaccio pulito e strizzatelo in modo da eliminare l’acqua in eccesso.
+Nel food processor da 3,1 l di @kitchenaiditaly mettete tutti gli ingredienti per le polpette e frullate in modo da ottenere un composto grossolano ma omogeneo.
+Create delle polpettine, infarinate e friggete in abbondante olio di semi di arachide caldo per circa 5 minuti. Quando saranno dorate, scolate e salate leggermente.
+Nel frattempo preparate la salsa al curry. Fate un trito con il cipollotto, il peperoncino e lo zenzero. Fate soffriggere con dell’olio per circa un paio di minuti, mescolando spesso.
+Aggiungete il curry, la pasta di arachidi (o le arachidi sgusciate) e il latte di cocco. Salate e fate cuocere a fuoco medio per circa 5 minuti.
+Frullate il tutto (io ho usato il frullatore k400 di @kitchenaiditaly ) in modo da ottenere una salsa omogenea.
+Servite le polpette accompagnate dalla salsa al curry, coriandolo fresco tritato e del succo di lime.

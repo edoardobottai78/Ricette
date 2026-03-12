@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aggiungi Ricetta</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0f0e0c;
+  color: #f0ece4;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.card {
+  background: #1a1915;
+  border: 1px solid #2e2c28;
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 480px;
+  width: 100%;
+}
+h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: #e8a838; }
+p { color: #9a948a; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px; }
+label { display: block; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: #9a948a; margin-bottom: 8px; }
+input, textarea {
+  width: 100%;
+  background: #242320;
+  border: 1px solid #2e2c28;
+  border-radius: 10px;
+  color: #f0ece4;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus, textarea:focus { border-color: #e8a838; }
+textarea { resize: vertical; min-height: 80px; }
+button {
+  width: 100%;
+  background: #e8a838;
+  border: none;
+  border-radius: 10px;
+  color: #0f0e0c;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 10px;
+}
+button:hover { background: #d09828; }
+button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
+.btn-secondary {
+  background: #242320;
+  color: #9a948a;
+  border: 1px solid #2e2c28;
+  font-size: 0.85rem;
+  padding: 12px;
+}
+.btn-secondary:hover { background: #2e2c28; color: #f0ece4; }
+.status {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  display: none;
+}
+.status.success { background: #0a3d1f; color: #4ade80; border: 1px solid #166534; display: block; }
+.status.error   { background: #3d0a0a; color: #f87171; border: 1px solid #991b1b; display: block; }
+.status.loading { background: #2a2010; color: #e8a838; border: 1px solid #4a3820; display: block; }
+.divider { border: none; border-top: 1px solid #2e2c28; margin: 24px 0; }
+.note { font-size: 0.8rem; color: #6a6458; font-style: italic; }
+#setupScreen, #mainScreen { display: none; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- SETUP: inserimento token una tantum -->
+  <div id="setupScreen">
+    <h1>🔑 Setup iniziale</h1>
+    <p>Inserisci il tuo token GitHub. Viene salvato solo sul tuo dispositivo e non sarà mai condiviso.</p>
+    <label>Token GitHub (ghp_...)</label>
+    <input type="password" id="tokenInput" placeholder="ghp_..." autocomplete="off">
+    <button onclick="saveToken()">Salva e continua →</button>
+    <div class="status" id="setupStatus"></div>
+  </div>
+
+  <!-- MAIN: aggiunta ricette -->
+  <div id="mainScreen">
+    <h1>🍝 Aggiungi Ricetta</h1>
+    <p>Aggiungi una nuova ricetta al sito. Si aggiorna automaticamente in ~60 secondi.</p>
+
+    <label>Nome della ricetta *</label>
+    <input type="text" id="title" placeholder="es. Risotto al tartufo" autocomplete="off">
+
+    <label>Note / Ingredienti principali (opzionale)</label>
+    <textarea id="notes" placeholder="es. Con burro, parmigiano e tartufo nero..."></textarea>
+
+    <button id="btn" onclick="addRecipe()">Aggiungi al sito →</button>
+    <button class="btn-secondary" onclick="resetToken()">⚙️ Cambia token</button>
+    <div class="status" id="status"></div>
+
+    <hr class="divider">
+    <p class="note">Il sito verrà aggiornato su <strong style="color:#e8a838">edoardobottai78.github.io/Ricette</strong></p>
+  </div>
+
+</div>
+
+<script>
+const OWNER = 'edoardobottai78';
+const REPO  = 'Ricette';
+const FILE  = 'ricette.txt';
+const API   = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`;
+const TOKEN_KEY = 'gh_token_ricette';
+
+function init() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  document.getElementById(token ? 'mainScreen' : 'setupScreen').style.display = 'block';
+}
+
+function saveToken() {
+  const token = document.getElementById('tokenInput').value.trim();
+  if (!token.startsWith('ghp_')) {
+    showSetupStatus('Token non valido. Deve iniziare con ghp_', 'error');
+    return;
+  }
+  localStorage.setItem(TOKEN_KEY, token);
+  document.getElementById('setupScreen').style.display = 'none';
+  document.getElementById('mainScreen').style.display = 'block';
+}
+
+function resetToken() {
+  localStorage.removeItem(TOKEN_KEY);
+  document.getElementById('mainScreen').style.display = 'none';
+  document.getElementById('setupScreen').style.display = 'block';
+  document.getElementById('tokenInput').value = '';
+}
+
+async function addRecipe() {
+  const title = document.getElementById('title').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!title) { showStatus('Inserisci il nome della ricetta.', 'error'); return; }
+
+  const btn = document.getElementById('btn');
+  btn.disabled = true;
+  showStatus('Recupero file attuale...', 'loading');
+
+  try {
+    const res = await fetch(API, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (!res.ok) throw new Error('Errore nel recupero del file. Controlla il token.');
+    const data = await res.json();
+
+    const currentContent = atob(data.content.replace(/\n/g, ''));
+    const newLine = notes ? `${title} | ${notes}` : title;
+    const newContent = currentContent.trimEnd() + '\n' + newLine + '\n';
+
+    showStatus('Salvataggio in corso...', 'loading');
+    const updateRes = await fetch(API, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `🍝 Aggiunta ricetta: ${title}`,
+        content: btoa(unescape(encodeURIComponent(newContent))),
+        sha: data.sha
+      })
+    });
+    if (!updateRes.ok) throw new Error('Errore nel salvataggio.');
+
+    showStatus(`✅ "${title}" aggiunta! Il sito si aggiorna in ~60 secondi.`, 'success');
+    document.getElementById('title').value = '';
+    document.getElementById('notes').value = '';
+  } catch(e) {
+    showStatus('❌ ' + e.message, 'error');
+  }
+  btn.disabled = false;
+}
+
+function showStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status ' + type;
+}
+function showSetupStatus(msg, type) {
+  const el = document.getElementById('setupStatus');
+  el.textContent = msg;
+  el.className = 'status ' + type;
+}
+
+document.addEventListener('DOMContentLoaded', init);
+document.getElementById('title')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') addRecipe();
+});
+document.getElementById('tokenInput')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') saveToken();
+});
+</script>
+</body>
+</html>

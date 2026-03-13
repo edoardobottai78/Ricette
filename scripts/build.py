@@ -2,9 +2,8 @@
 import json, re, sys
 from pathlib import Path
 
-UNSPLASH_KEY = "f_95Zpj5cCokVF6wE_wzrIZv4SloLmioUiyD5_BM3ZU"
-INPUT_FILE   = Path("ricette.txt")
-OUTPUT_FILE  = Path("index.html")
+INPUT_FILE  = Path("ricette.txt")
+OUTPUT_FILE = Path("index.html")
 
 CATEGORY_RULES = [
     ("Dolci & Dessert",         r"torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|zuppetta di fragole|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti"),
@@ -12,42 +11,20 @@ CATEGORY_RULES = [
     ("Tacos & Street Food",     r"tacos|taco|nachos|cono|coni|tramezzini"),
     ("Panini & Piadine",        r"panino|piadina|bun |burger|tartina"),
     ("Primi Piatti",            r"pasta|spaghetti|spaghetto|tagliatelle|pappardelle|rigatoni|paccheri|mezze maniche|tonnarelli|risotto|gnocchi|lasagne|ravioli|tortelli|cappellacci|passatelli|cous cous|riso |minestra|zuppa di|gnocco"),
-    ("Secondi Piatti",          r"filetto|polpo|polpette|cozze fritte|cavolo cappuccio|bocconcini di pollo|jarret|fegatini|arancina|arancine|cecina gamberi|cannolo al nero|spaghetto mayo|tonno cbt|maialino|passata di ceci|polenta baccalà|polenta nero|cozze pesto|cavolo cappuccio viola"),
+    ("Secondi Piatti",          r"filetto|polpo|polpette|cozze fritte|cavolo cappuccio|bocconcini di pollo|jarret|fegatini|arancina|arancine|cecina gamberi|cannolo al nero|spaghetto mayo|tonno cbt|maialino|passata di ceci|polenta|cozze pesto|cavolo cappuccio viola"),
     ("Zuppe & Vellutate",       r"zuppetta|zuppa|crema di|vellutata|chowder|brodetto|brodo|minestra riso|passata"),
     ("Antipasti & Stuzzichini", r".*"),
 ]
 
-CAT_EMOJI = {
-    "Antipasti & Stuzzichini": "🫒",
-    "Primi Piatti":            "🍝",
-    "Secondi Piatti":          "🥩",
-    "Pizza & Focaccia":        "🍕",
-    "Panini & Piadine":        "🥖",
-    "Tacos & Street Food":     "🌮",
-    "Dolci & Dessert":         "🍮",
-    "Zuppe & Vellutate":       "🍲",
-}
-
-CAT_COLORS = {
-    "Antipasti & Stuzzichini": "#e8a838",
-    "Primi Piatti":            "#d05a2f",
-    "Secondi Piatti":          "#4a9e6b",
-    "Pizza & Focaccia":        "#6b8fd1",
-    "Panini & Piadine":        "#c75e8a",
-    "Tacos & Street Food":     "#a06bdb",
-    "Dolci & Dessert":         "#e86b6b",
-    "Zuppe & Vellutate":       "#5bb8c4",
-}
-
-CAT_GRADIENTS = {
-    "Antipasti & Stuzzichini": ["#8B1A1A", "#D4956A"],
-    "Primi Piatti":            ["#5C1A0A", "#C4622D"],
-    "Secondi Piatti":          ["#0A3D1F", "#2D8653"],
-    "Pizza & Focaccia":        ["#1A1A5E", "#4A6ED4"],
-    "Panini & Piadine":        ["#4A0A5E", "#A855C7"],
-    "Tacos & Street Food":     ["#3D1A00", "#B05A1A"],
-    "Dolci & Dessert":         ["#5E0A2E", "#D45A8A"],
-    "Zuppe & Vellutate":       ["#0A2E3D", "#1A8099"],
+CAT_META = {
+    "Antipasti & Stuzzichini": {"emoji": "🫒", "color": "#C4853A", "svg": '<circle cx="32" cy="32" r="12" fill="none" stroke="currentColor" stroke-width="2.5"/><ellipse cx="32" cy="32" rx="6" ry="18" fill="none" stroke="currentColor" stroke-width="2"/><line x1="32" y1="14" x2="38" y2="8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'},
+    "Primi Piatti":            {"emoji": "🍝", "color": "#C4622D", "svg": '<path d="M16 36 Q24 20 32 36 Q40 20 48 36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M18 30 Q26 16 32 30 Q38 16 46 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="32" cy="40" rx="16" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>'},
+    "Secondi Piatti":          {"emoji": "🥩", "color": "#2D8653", "svg": '<path d="M20 38 Q20 24 32 22 Q44 24 44 38 Q44 46 32 46 Q20 46 20 38Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M26 22 Q24 14 28 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M36 22 Q40 14 38 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'},
+    "Pizza & Focaccia":        {"emoji": "🍕", "color": "#4A6ED4", "svg": '<path d="M32 16 L50 46 L14 46 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><circle cx="28" cy="36" r="3" fill="currentColor" opacity=".5"/><circle cx="36" cy="30" r="2.5" fill="currentColor" opacity=".5"/><circle cx="32" cy="40" r="2" fill="currentColor" opacity=".5"/>'},
+    "Panini & Piadine":        {"emoji": "🥖", "color": "#A855C7", "svg": '<path d="M16 36 Q16 26 32 24 Q48 26 48 36 Q48 40 32 42 Q16 40 16 36Z" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="33" x2="42" y2="33" stroke="currentColor" stroke-width="1.5" opacity=".5"/><path d="M20 30 Q32 26 44 30" stroke="currentColor" stroke-width="1.5" opacity=".4" fill="none"/>'},
+    "Tacos & Street Food":     {"emoji": "🌮", "color": "#B05A1A", "svg": '<path d="M16 40 Q16 24 32 20 Q48 24 48 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="40" x2="48" y2="40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="26" cy="34" r="2.5" fill="currentColor" opacity=".5"/><circle cx="36" cy="31" r="2" fill="currentColor" opacity=".5"/>'},
+    "Dolci & Dessert":         {"emoji": "🍮", "color": "#D45A8A", "svg": '<path d="M22 42 L24 28 Q32 20 40 28 L42 42 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="32" cy="42" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 20 Q34 14 32 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
+    "Zuppe & Vellutate":       {"emoji": "🍲", "color": "#1A8099", "svg": '<path d="M18 34 Q18 46 32 46 Q46 46 46 34 L44 28 L20 28 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><line x1="14" y1="28" x2="50" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M26 24 Q26 18 28 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M36 24 Q36 18 38 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>'},
 }
 
 def categorize(title):
@@ -57,115 +34,36 @@ def categorize(title):
             return cat
     return "Antipasti & Stuzzichini"
 
-def unsplash_query(title):
-    replacements = {
-        "spaghetti": "spaghetti pasta", "risotto": "risotto italian",
-        "pizza": "pizza italian", "focaccia": "focaccia bread",
-        "tacos": "tacos street food", "panino": "gourmet sandwich",
-        "piadina": "flatbread italian", "torta": "cake italian",
-        "cupcake": "cupcake frosting", "zuppa": "soup italian",
-        "cozze": "mussels seafood", "gamberi": "shrimp seafood",
-        "polpo": "octopus grilled", "baccalà": "salt cod fish",
-        "arancina": "arancini sicilian", "gnocchi": "gnocchi potato",
-        "lasagne": "lasagna baked", "ravioli": "ravioli pasta",
-        "castagnaccio": "chestnut cake rustic", "polpette": "meatballs italian",
-        "pollo": "chicken dish italian", "manzo": "beef steak",
-    }
-    q = title.lower()
-    for it, en in replacements.items():
-        if it in q:
-            return en + " food photography"
-    return " ".join(title.split()[:3]) + " italian food photography"
-
 def parse_recipes(text):
-    """
-    Formato supportato:
-    1. Una ricetta per riga: Titolo
-    2. Con note inline:      Titolo | note su una riga
-    3. Blocco multiriga:
-       ---
-       Titolo
-       riga 1 note
-       riga 2 note
-       ---
-    """
     recipes = []
     seen = set()
     rid = 1
-    lines = text.splitlines()
-    i = 0
-
-    while i < len(lines):
-        line = lines[i].strip()
-
-        # Salta righe vuote e commenti
+    for line in text.splitlines():
+        line = line.strip()
         if not line or line.startswith("#"):
-            i += 1
             continue
-
-        # Inizio blocco multiriga ---
-        if line == "---":
-            i += 1
-            block_lines = []
-            while i < len(lines):
-                l = lines[i].strip()
-                if l == "---":
-                    i += 1
-                    break
-                if not l.startswith("#"):
-                    block_lines.append(l)
-                i += 1
-            if not block_lines:
-                continue
-            first = block_lines[0]
-            if "|" in first:
-                parts = first.split("|", 1)
-                title = parts[0].strip()
-                note = parts[1].strip()
-                body = "\n".join(block_lines[1:])
-                note = (note + "\n" + body).strip() if body else note
-            else:
-                title = first
-                note = "\n".join(block_lines[1:]).strip()
+        if "|" in line:
+            parts = line.split("|", 1)
+            title = parts[0].strip()
+            note  = parts[1].strip()
         else:
-            # Riga singola (formato normale)
-            if "|" in line:
-                parts = line.split("|", 1)
-                title = parts[0].strip()
-                note = parts[1].strip()
-            else:
-                title = line
-                note = ""
-            i += 1
-
-        if not title:
-            continue
-
+            title = line
+            note  = ""
         key = title.lower()[:40]
         if key in seen:
             continue
         seen.add(key)
-
         cat = categorize(title)
-        recipes.append({
-            "id":    rid,
-            "title": title,
-            "cat":   cat,
-            "note":  note,
-            "query": unsplash_query(title),
-        })
+        recipes.append({"id": rid, "title": title, "cat": cat, "note": note})
         rid += 1
-
     return recipes
 
 def build_html(recipes):
     recipes_json = json.dumps(recipes, ensure_ascii=False)
-    cats_json    = json.dumps(list(dict.fromkeys(r["cat"] for r in recipes)), ensure_ascii=False)
-    emoji_json   = json.dumps(CAT_EMOJI, ensure_ascii=False)
-    colors_json  = json.dumps(CAT_COLORS, ensure_ascii=False)
-    grads_json   = json.dumps(CAT_GRADIENTS, ensure_ascii=False)
+    cats_ordered = list(dict.fromkeys(r["cat"] for r in recipes))
+    cats_json    = json.dumps(cats_ordered, ensure_ascii=False)
+    meta_json    = json.dumps(CAT_META, ensure_ascii=False)
     total        = len(recipes)
-    n_cats       = len(set(r["cat"] for r in recipes))
 
     return f"""<!DOCTYPE html>
 <html lang="it">
@@ -173,252 +71,455 @@ def build_html(recipes):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le Mie Ricette</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#0f0e0c;--surface:#1a1915;--surface2:#242320;--accent:#e8a838;--text:#f0ece4;--muted:#9a948a;--border:#2e2c28;}}
-*,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
-body{{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}}
-.hero{{padding:80px 40px 60px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(232,168,56,.15) 0%,transparent 70%);border-bottom:1px solid var(--border);}}
-.hero-label{{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:500;}}
-.hero h1{{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,7rem);font-weight:900;line-height:.9;letter-spacing:-2px;background:linear-gradient(135deg,var(--text) 40%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px;}}
-.hero p{{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto 40px;line-height:1.7;}}
-.stats{{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;}}
-.stat-num{{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--accent);}}
-.stat-label{{font-size:.75rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}}
-.search-wrap{{padding:32px 40px;max-width:700px;margin:0 auto;}}
-.search-box{{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:14px 24px;gap:12px;transition:border-color .2s;}}
-.search-box:focus-within{{border-color:var(--accent);}}
-.search-box input{{background:none;border:none;outline:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:1rem;width:100%;}}
-.search-box input::placeholder{{color:var(--muted);}}
-.nav-wrap{{padding:0 40px 32px;overflow-x:auto;scrollbar-width:none;}}
-.nav-wrap::-webkit-scrollbar{{display:none;}}
-.nav-tabs{{display:flex;gap:8px;width:max-content;}}
-.tab-btn{{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:10px 20px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px;}}
-.tab-btn:hover{{border-color:var(--accent);color:var(--text);}}
-.tab-btn.active{{background:var(--accent);border-color:var(--accent);color:#0f0e0c;font-weight:600;}}
-.tab-count{{background:rgba(0,0,0,.2);border-radius:20px;padding:1px 7px;font-size:.75rem;}}
-.cat-section{{padding:0 40px 60px;display:none;}}
-.cat-section.visible{{display:block;}}
-.cat-header{{display:flex;align-items:center;gap:16px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}}
-.cat-emoji{{font-size:2rem;}}
-.cat-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;}}
-.cat-count-badge{{margin-left:auto;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px;font-size:.8rem;color:var(--muted);}}
-.recipe-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}}
-.recipe-card{{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;}}
-.recipe-card:hover{{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 40px rgba(0,0,0,.5);}}
-.card-img-wrap{{position:relative;height:200px;overflow:hidden;}}
-.card-img-wrap img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;transition:opacity .5s;}}
-.card-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,14,12,.6) 0%,transparent 55%);}}
-.card-placeholder{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}}
-.card-body{{padding:20px;}}
-.card-cat-label{{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;margin-bottom:10px;}}
-.card-dot{{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;flex-shrink:0;}}
-.card-title{{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;line-height:1.3;}}
-.card-footer{{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--border);}}
-.card-arrow{{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0;transition:background .2s,color .2s;}}
-.recipe-card:hover .card-arrow{{background:var(--accent);color:#0f0e0c;}}
-.has-note{{font-size:.75rem;color:var(--muted);}}
-.modal-overlay{{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s;}}
-.modal-overlay.open{{opacity:1;pointer-events:all;}}
-.modal{{background:var(--surface);border:1px solid var(--border);border-radius:24px;width:100%;max-width:760px;overflow:hidden;transform:translateY(20px);transition:transform .3s;margin:auto;}}
-.modal-overlay.open .modal{{transform:translateY(0);}}
-.modal-hero{{position:relative;height:300px;overflow:hidden;background:var(--surface2);}}
-.modal-hero img{{width:100%;height:100%;object-fit:cover;display:none;transition:opacity .5s;}}
-.modal-hero-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,25,21,1) 0%,transparent 60%);}}
-.modal-close{{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:background .2s;}}
-.modal-close:hover{{background:rgba(232,168,56,.8);}}
-.modal-content{{padding:32px;}}
-.modal-cat{{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}}
-.modal-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:24px;}}
-.modal-note{{color:var(--muted);font-size:.95rem;line-height:1.8;white-space:pre-wrap;background:var(--surface2);border-left:3px solid var(--accent);padding:20px 24px;border-radius:0 8px 8px 0;}}
-.modal-empty{{color:var(--muted);font-size:.9rem;font-style:italic;opacity:.6;}}
-.no-results{{text-align:center;padding:80px 40px;color:var(--muted);display:none;}}
-.no-results.visible{{display:block;}}
-@media(max-width:600px){{
-  .hero h1{{font-size:3rem;}}
-  .cat-section,.nav-wrap,.search-wrap{{padding-left:20px;padding-right:20px;}}
-  .recipe-grid{{grid-template-columns:1fr;}}
+:root{{
+  --bg: #F7F4EF;
+  --ink: #1C1A17;
+  --muted: #9A948A;
+  --border: #DDD8D0;
+  --accent: #C4853A;
+  --surface: #EFEBE4;
+}}
+*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+html {{ scroll-behavior: smooth; }}
+body {{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}}
+
+/* HEADER */
+.site-header {{
+  padding: 64px 48px 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}}
+.header-left h1 {{
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -2px;
+  color: var(--ink);
+}}
+.header-left h1 em {{
+  font-style: italic;
+  color: var(--accent);
+}}
+.header-meta {{
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 16px;
+}}
+.header-right {{
+  text-align: right;
+}}
+.total-count {{
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  letter-spacing: -3px;
+}}
+.total-label {{
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}}
+
+/* SEARCH */
+.search-wrap {{
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}}
+.search-wrap input {{
+  background: none;
+  border: none;
+  outline: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  width: 100%;
+  font-style: italic;
+}}
+.search-wrap input::placeholder {{ color: var(--muted); }}
+.search-icon {{ color: var(--muted); flex-shrink: 0; }}
+
+/* NAV */
+.cat-nav {{
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+}}
+.cat-nav::-webkit-scrollbar {{ display: none; }}
+.cat-tab {{
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 16px 0;
+  margin-right: 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+  flex-shrink: 0;
+}}
+.cat-tab:hover {{ color: var(--ink); }}
+.cat-tab.active {{ color: var(--ink); border-bottom-color: var(--accent); }}
+
+/* MAIN */
+.main {{ padding: 0 48px 80px; }}
+
+/* CATEGORY BLOCK */
+.cat-block {{ display: none; }}
+.cat-block.visible {{ display: block; }}
+.cat-heading {{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 48px 0 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}}
+.cat-icon {{
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}}
+.cat-name {{
+  font-size: 2.4rem;
+  font-weight: 300;
+  letter-spacing: -1px;
+}}
+.cat-n {{
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+}}
+
+/* RECIPE LIST */
+.recipe-list {{ list-style: none; }}
+.recipe-row {{
+  display: flex;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .15s;
+  position: relative;
+}}
+.recipe-row:hover {{ background: var(--surface); margin: 0 -48px; padding: 18px 48px; }}
+.recipe-num {{
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  width: 36px;
+  flex-shrink: 0;
+}}
+.recipe-name {{
+  font-size: 1.35rem;
+  font-weight: 400;
+  flex: 1;
+  line-height: 1.3;
+}}
+.recipe-badge {{
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-left: 12px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity .2s;
+}}
+.recipe-row:hover .recipe-badge {{ opacity: 1; }}
+.recipe-arrow {{
+  color: var(--muted);
+  margin-left: 12px;
+  flex-shrink: 0;
+  transition: transform .2s, color .2s;
+}}
+.recipe-row:hover .recipe-arrow {{ transform: translateX(4px); color: var(--accent); }}
+
+/* MODAL */
+.modal-overlay {{
+  position: fixed; inset: 0;
+  background: rgba(28,26,23,.7);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s;
+}}
+.modal-overlay.open {{ opacity: 1; pointer-events: all; }}
+.modal {{
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  width: 100%; max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: translateY(16px);
+  transition: transform .25s;
+}}
+.modal-overlay.open .modal {{ transform: translateY(0); }}
+.modal-header {{
+  padding: 40px 40px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}}
+.modal-icon {{
+  width: 56px; height: 56px;
+  flex-shrink: 0;
+  opacity: .6;
+}}
+.modal-close {{
+  background: none; border: none;
+  font-size: 1.5rem; color: var(--muted);
+  cursor: pointer; line-height: 1;
+  transition: color .2s;
+  padding: 4px;
+}}
+.modal-close:hover {{ color: var(--ink); }}
+.modal-body {{ padding: 24px 40px 40px; }}
+.modal-cat {{
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 12px;
+}}
+.modal-title {{
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 28px;
+}}
+.modal-divider {{
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 24px;
+}}
+.modal-note {{
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #4A4540;
+  white-space: pre-wrap;
+  font-style: italic;
+}}
+.modal-empty {{
+  font-size: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}}
+
+/* NO RESULTS */
+.no-results {{
+  display: none;
+  padding: 80px 0;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.3rem;
+}}
+.no-results.visible {{ display: block; }}
+
+@media (max-width: 600px) {{
+  .site-header, .search-wrap, .cat-nav, .main {{ padding-left: 24px; padding-right: 24px; }}
+  .recipe-row:hover {{ margin: 0 -24px; padding: 18px 24px; }}
+  .modal-header, .modal-body {{ padding-left: 24px; padding-right: 24px; }}
+  .site-header {{ padding-top: 40px; flex-direction: column; align-items: flex-start; }}
+  .header-right {{ text-align: left; }}
 }}
 </style>
 </head>
 <body>
-<header class="hero">
-  <p class="hero-label">La mia cucina</p>
-  <h1>Le Mie<br>Ricette</h1>
-  <p>Una collezione personale in continuo aggiornamento.</p>
-  <div class="stats">
-    <div class="stat"><div class="stat-num">{total}</div><div class="stat-label">Ricette</div></div>
-    <div class="stat"><div class="stat-num">{n_cats}</div><div class="stat-label">Categorie</div></div>
-    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Gusto</div></div>
+
+<header class="site-header">
+  <div class="header-left">
+    <h1>Le Mie<br><em>Ricette</em></h1>
+    <p class="header-meta">Collezione personale &nbsp;·&nbsp; Sempre aggiornata</p>
+  </div>
+  <div class="header-right">
+    <div class="total-count">{total}</div>
+    <div class="total-label">ricette</div>
   </div>
 </header>
+
 <div class="search-wrap">
-  <div class="search-box">
-    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="searchInput" placeholder="Cerca una ricetta..." oninput="filterRecipes(this.value)">
-  </div>
+  <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  <input type="text" id="searchInput" placeholder="Cerca una ricetta…" oninput="filterRecipes(this.value)">
 </div>
-<div class="nav-wrap"><div class="nav-tabs" id="navTabs"></div></div>
-<div id="sectionsContainer"></div>
-<div class="no-results" id="noResults"><div style="font-size:3rem;margin-bottom:16px">🔍</div><p>Nessuna ricetta trovata.</p></div>
+
+<nav class="cat-nav" id="catNav"></nav>
+
+<main class="main" id="main"></main>
+<div class="no-results" id="noResults">Nessuna ricetta trovata.</div>
+
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal">
-    <div class="modal-hero" id="modalHero">
-      <div id="modalHeroPlaceholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;"></div>
-      <img id="modalPhoto" alt="" onload="this.style.display='block';this.style.opacity=1">
-      <div class="modal-hero-overlay"></div>
-      <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''">&times;</button>
+    <div class="modal-header">
+      <svg class="modal-icon" id="modalIcon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+      <button class="modal-close" onclick="closeModalDirect()">&times;</button>
     </div>
-    <div class="modal-content">
+    <div class="modal-body">
       <div class="modal-cat" id="modalCat"></div>
       <h2 class="modal-title" id="modalTitle"></h2>
-      <div id="modalBody"></div>
+      <hr class="modal-divider">
+      <div id="modalNote"></div>
     </div>
   </div>
 </div>
+
 <script>
-const RECIPES={recipes_json};
-const CATS={cats_json};
-const CAT_EMOJI={emoji_json};
-const CAT_COLORS={colors_json};
-const CAT_GRADS={grads_json};
-const UNSPLASH_KEY="{UNSPLASH_KEY}";
-const photoCache={{}};
-async function fetchPhoto(rid,query){{
-  if(photoCache[rid])return photoCache[rid];
-  try{{
-    const r=await fetch(`https://api.unsplash.com/search/photos?query=${{encodeURIComponent(query)}}&per_page=3&orientation=landscape&client_id=${{UNSPLASH_KEY}}`);
-    const d=await r.json();
-    if(d.results&&d.results.length){{
-      const url=d.results[rid%d.results.length].urls.regular+"&w=400&h=260&fit=crop&auto=format&q=80";
-      photoCache[rid]=url;return url;
-    }}
-  }}catch(e){{}}
-  return null;
+const RECIPES = {recipes_json};
+const CATS = {cats_json};
+const META = {meta_json};
+
+function svgForCat(cat) {{
+  const m = META[cat];
+  return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:${{m.color}}">${{m.svg}}</svg>`;
 }}
-const observer=new IntersectionObserver(entries=>{{
-  entries.forEach(e=>{{
-    if(!e.isIntersecting)return;
-    const img=e.target;
-    fetchPhoto(+img.dataset.rid,img.dataset.query).then(url=>{{
-      if(url){{img.src=url;img.onload=()=>{{img.style.display='block';img.style.opacity=1;img.previousElementSibling.style.opacity=0;}}}}
-    }});
-    observer.unobserve(img);
-  }});
-}},{{rootMargin:'300px'}});
-function buildTabs(){{
-  const nav=document.getElementById('navTabs');
-  const all=document.createElement('button');
-  all.className='tab-btn active';
-  all.innerHTML=`Tutte <span class="tab-count">${{RECIPES.length}}</span>`;
-  all.onclick=()=>showCat('all',all);
-  nav.appendChild(all);
-  CATS.forEach(cat=>{{
-    const n=RECIPES.filter(r=>r.cat===cat).length;
-    const btn=document.createElement('button');
-    btn.className='tab-btn';
-    btn.innerHTML=`${{CAT_EMOJI[cat]}} ${{cat}} <span class="tab-count">${{n}}</span>`;
-    btn.onclick=()=>showCat(cat,btn);
+
+function buildNav() {{
+  const nav = document.getElementById('catNav');
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-tab active';
+  allBtn.textContent = 'Tutte';
+  allBtn.onclick = () => showCat('all', allBtn);
+  nav.appendChild(allBtn);
+  CATS.forEach(cat => {{
+    const btn = document.createElement('button');
+    btn.className = 'cat-tab';
+    btn.textContent = cat;
+    btn.onclick = () => showCat(cat, btn);
     nav.appendChild(btn);
   }});
 }}
-function buildSections(){{
-  const container=document.getElementById('sectionsContainer');
-  const allSec=document.createElement('div');
-  allSec.className='cat-section visible';
-  allSec.dataset.cat='all';
-  CATS.forEach(cat=>allSec.appendChild(buildGroup(cat,RECIPES.filter(r=>r.cat===cat))));
-  container.appendChild(allSec);
-  CATS.forEach(cat=>{{
-    const sec=document.createElement('div');
-    sec.className='cat-section';
-    sec.dataset.cat=cat;
-    sec.appendChild(buildGroup(cat,RECIPES.filter(r=>r.cat===cat)));
-    container.appendChild(sec);
+
+function buildSections() {{
+  const main = document.getElementById('main');
+  // "Tutte" section
+  const allSec = document.createElement('div');
+  allSec.className = 'cat-block visible';
+  allSec.dataset.cat = 'all';
+  CATS.forEach(cat => {{
+    const recipes = RECIPES.filter(r => r.cat === cat);
+    if (recipes.length) allSec.appendChild(buildCatBlock(cat, recipes));
+  }});
+  main.appendChild(allSec);
+  // Individual sections
+  CATS.forEach(cat => {{
+    const recipes = RECIPES.filter(r => r.cat === cat);
+    if (!recipes.length) return;
+    const sec = document.createElement('div');
+    sec.className = 'cat-block';
+    sec.dataset.cat = cat;
+    sec.appendChild(buildCatBlock(cat, recipes));
+    main.appendChild(sec);
   }});
 }}
-function buildGroup(cat,recipes){{
-  const div=document.createElement('div');
-  div.style.marginBottom='60px';
-  div.innerHTML=`<div class="cat-header"><span class="cat-emoji">${{CAT_EMOJI[cat]}}</span><h2 class="cat-title">${{cat}}</h2><span class="cat-count-badge">${{recipes.length}} ricette</span></div>`;
-  const grid=document.createElement('div');
-  grid.className='recipe-grid';
-  recipes.forEach(r=>grid.appendChild(buildCard(r)));
-  div.appendChild(grid);
-  return div;
-}}
-function buildCard(r){{
-  const card=document.createElement('div');
-  card.className='recipe-card';
-  card.dataset.title=r.title.toLowerCase();
-  card.dataset.cat=r.cat.toLowerCase();
-  const color=CAT_COLORS[r.cat]||'#e8a838';
-  const[g1,g2]=CAT_GRADS[r.cat]||['#1a1915','#3a3930'];
-  const hasNote=r.note&&r.note.trim().length>0;
-  card.innerHTML=`
-    <div class="card-img-wrap" style="background:linear-gradient(135deg,${{g1}},${{g2}})">
-      <div class="card-placeholder" style="opacity:.45">${{CAT_EMOJI[r.cat]}}</div>
-      <img data-rid="${{r.id}}" data-query="${{r.query}}" alt="${{r.title}}">
-      <div class="card-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-cat-label"><span class="card-dot" style="background:${{color}}"></span>${{r.cat}}</div>
-      <h3 class="card-title">${{r.title}}</h3>
-    </div>
-    <div class="card-footer">
-      <span class="has-note">${{hasNote?'📋 Ricetta completa':'Clicca per i dettagli'}}</span>
-      <div class="card-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+function buildCatBlock(cat, recipes) {{
+  const m = META[cat];
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `
+    <div class="cat-heading">
+      <svg class="cat-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:${{m.color}}">${{m.svg}}</svg>
+      <span class="cat-name">${{cat}}</span>
+      <span class="cat-n">${{recipes.length}} ricette</span>
     </div>`;
-  card.onclick=()=>openModal(r);
-  const img=card.querySelector('img[data-rid]');
-  if(img)observer.observe(img);
-  return card;
-}}
-function showCat(cat,btn){{
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.cat-section').forEach(s=>s.classList.toggle('visible',s.dataset.cat===cat));
-  document.getElementById('searchInput').value='';
-  document.getElementById('noResults').classList.remove('visible');
-  document.querySelectorAll('.recipe-card').forEach(c=>c.style.display='');
-}}
-function filterRecipes(val){{
-  const q=val.toLowerCase();
-  let found=0;
-  document.querySelectorAll('.cat-section').forEach(s=>s.classList.toggle('visible',s.dataset.cat==='all'));
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
-  document.querySelectorAll('.recipe-card').forEach(card=>{{
-    const match=!q||card.dataset.title.includes(q)||card.dataset.cat.includes(q);
-    card.style.display=match?'':'none';
-    if(match)found++;
+  const ul = document.createElement('ul');
+  ul.className = 'recipe-list';
+  recipes.forEach((r, i) => {{
+    const li = document.createElement('li');
+    li.className = 'recipe-row';
+    li.dataset.title = r.title.toLowerCase();
+    li.dataset.cat = r.cat.toLowerCase();
+    li.innerHTML = `
+      <span class="recipe-num">${{String(i+1).padStart(2,'0')}}</span>
+      <span class="recipe-name">${{r.title}}</span>
+      ${{r.note ? '<span class="recipe-badge">RICETTA</span>' : ''}}
+      <svg class="recipe-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+    li.onclick = () => openModal(r);
+    ul.appendChild(li);
   }});
-  document.getElementById('noResults').classList.toggle('visible',found===0);
+  wrap.appendChild(ul);
+  return wrap;
 }}
-function openModal(r){{
-  const[g1,g2]=CAT_GRADS[r.cat]||['#1a1915','#3a3930'];
-  document.getElementById('modalHeroPlaceholder').textContent=CAT_EMOJI[r.cat];
-  document.getElementById('modalHeroPlaceholder').style.background=`linear-gradient(135deg,${{g1}},${{g2}})`;
-  const mp=document.getElementById('modalPhoto');
-  mp.style.display='none';mp.src='';
-  fetchPhoto(r.id,r.query).then(url=>{{if(url)mp.src=url;}});
-  document.getElementById('modalCat').textContent=`${{CAT_EMOJI[r.cat]}} ${{r.cat}}`;
-  document.getElementById('modalTitle').textContent=r.title;
-  const body=document.getElementById('modalBody');
-  if(r.note&&r.note.trim()){{
-    body.innerHTML=`<div class="modal-note">${{r.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}}</div>`;
-  }}else{{
-    body.innerHTML=`<p class="modal-empty">Nessuna nota per questa ricetta.</p>`;
-  }}
+
+function showCat(cat, btn) {{
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cat-block').forEach(s => s.classList.toggle('visible', s.dataset.cat === cat));
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.recipe-row').forEach(r => r.style.display = '');
+  document.getElementById('noResults').classList.remove('visible');
+}}
+
+function filterRecipes(val) {{
+  const q = val.toLowerCase();
+  let found = 0;
+  document.querySelectorAll('.cat-block').forEach(s => s.classList.toggle('visible', s.dataset.cat === 'all'));
+  document.querySelectorAll('.cat-tab').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelectorAll('.recipe-row').forEach(row => {{
+    const match = !q || row.dataset.title.includes(q) || row.dataset.cat.includes(q);
+    row.style.display = match ? '' : 'none';
+    if (match) found++;
+  }});
+  document.getElementById('noResults').classList.toggle('visible', found === 0);
+}}
+
+function openModal(r) {{
+  const m = META[r.cat];
+  document.getElementById('modalIcon').innerHTML = m.svg;
+  document.getElementById('modalIcon').style.color = m.color;
+  document.getElementById('modalCat').textContent = r.cat.toUpperCase();
+  document.getElementById('modalTitle').textContent = r.title;
+  const noteEl = document.getElementById('modalNote');
+  noteEl.innerHTML = r.note && r.note.trim()
+    ? `<div class="modal-note">${{r.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}}</div>`
+    : `<p class="modal-empty">Nessuna nota aggiunta.</p>`;
   document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }}
-function closeModal(e){{
-  if(e&&e.target!==document.getElementById('modalOverlay'))return;
+
+function closeModal(e) {{
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  closeModalDirect();
+}}
+function closeModalDirect() {{
   document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }}
-document.addEventListener('keydown',e=>{{if(e.key==='Escape'){{document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}}}});
-buildTabs();
+document.addEventListener('keydown', e => {{ if (e.key === 'Escape') closeModalDirect(); }});
+
+buildNav();
 buildSections();
 </script>
 </body>

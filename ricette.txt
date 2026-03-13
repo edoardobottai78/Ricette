@@ -1,8 +1,8 @@
 # ============================================================
-# RICETTE.TXT â Formato di inserimento
+# RICETTE.TXT Ã¢ÂÂ Formato di inserimento
 # ============================================================
 # Ogni ricetta va su UNA RIGA.
-# La prima riga di questo file Ã¨ un commento (inizia con #).
+# La prima riga di questo file ÃÂ¨ un commento (inizia con #).
 #
 # FORMATO BASE (solo titolo):
 #   Nome del piatto
@@ -20,7 +20,7 @@
 # - Una ricetta per riga
 # - Righe vuote vengono ignorate
 # - Righe che iniziano con # vengono ignorate (commenti)
-# - Il separatore | Ã¨ opzionale: tutto dopo | diventa la nota nella scheda
+# - Il separatore | ÃÂ¨ opzionale: tutto dopo | diventa la nota nella scheda
 # - L'ordine non importa: le ricette vengono categorizzate automaticamente
 # ============================================================
 
@@ -34,7 +34,7 @@ Lasagne croccanti al caprino
 Gnocchi di patate carciofi e fonduta di parmigiano
 Spaghetti cozze pomodoro e peperoncino
 Tacos pollo chipotle
-Crocchetta di baccalÃ  e caprino
+Crocchetta di baccalÃÂ  e caprino
 Patate fritte tartufo e parmigiano
 Cheese burger roll
 Cupcake
@@ -56,7 +56,7 @@ Paccheri fritti stracciatella e alici
 Spaghetti in carrozza
 Risotto cacio pepe e carciofo croccante
 Pizza squacquerone fiori di zucca e alici
-Fondo di carciofo e baccalÃ  mantecato
+Fondo di carciofo e baccalÃÂ  mantecato
 Mezze maniche pancetta fave e pecorino
 Carpaccio di ricciola riccio e wasabi
 Aglio olio peperoncino burrata e tartare di gambero
@@ -79,21 +79,21 @@ Zuppa di patate ceci e polpo
 Minestra di riso latte e castagne
 Risotto salsiccia lucanica e porro
 Cavolo cappuccio viola polpo e avocado
-Castagnaccio | 500g farina di castagne, 650ml acqua, 1.5 bicchiere latte, 40g olio, forno 170Â° non ventilato 30-35 min
+Castagnaccio | 500g farina di castagne, 650ml acqua, 1.5 bicchiere latte, 40g olio, forno 170ÃÂ° non ventilato 30-35 min
 Fegatini di pollo | 400g fegatini, soffritto, 10 min, brodo, vino bianco, frullare, pasta d'acciughe
 Cecina con gamberi e ricotta
 Riso nero seppia e gambero con cima di rapa
 Passatelli in brodetto di pesce
-Cannolo al nero di seppia con baccalÃ  e bottarga
+Cannolo al nero di seppia con baccalÃÂ  e bottarga
 Panino mortadella parmigiano carciofo e tartufo
 Crema di patate carciofo e bottarga
 Bicchiere di frutti di bosco crema al lime e crumble
 Polenta nera calamaretti
-Polenta con baccalÃ  e vongole
-Passata di ceci spinaci e baccalÃ 
+Polenta con baccalÃÂ  e vongole
+Passata di ceci spinaci e baccalÃÂ 
 Risotto cavolo nero gorgonzola e cozze
 Tonnarelli cacio pepe e cozze
-Tartina polenta nera baccalÃ  e bottarga
+Tartina polenta nera baccalÃÂ  e bottarga
 Tartina polenta bianca e seppie
 Tartina polenta e polpo
 Bruschetta burro e Chianti
@@ -115,7 +115,7 @@ Arancina sarde e finocchietto
 Risotto pecorino fichi e prosciutto
 Pizza zucca provola e speck
 Pan di Spagna mousse di yogurt e mango
-SablÃ© alla nocciola bignÃ¨ chantilly e gianduia
+SablÃÂ© alla nocciola bignÃÂ¨ chantilly e gianduia
 Pizza provola crema di cipolla e pancetta
 Sorbetto al melograno con mousse di yogurt greco
 Zabaione salato alla mazzancolla
@@ -136,3 +136,4 @@ Cozze pesto pecorino e carasau
 Frolla al cioccolato con marmellata di agrumi
 Ostrica al vapore con patata e friggitello
 Polpette di tofu con salsa di curry e arachidi
+Polpette di cavolo neto

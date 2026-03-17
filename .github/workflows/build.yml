@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'ricette.txt'
+      - 'ricette/**'    # si attiva anche quando aggiungi/modifichi ricette nella cartella
   workflow_dispatch:
 
 jobs:

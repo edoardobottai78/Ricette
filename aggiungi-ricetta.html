@@ -8,70 +8,42 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0f0e0c;
-  color: #f0ece4;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  background: #0f0e0c; color: #f0ece4;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
 }
 .card {
-  background: #1a1915;
-  border: 1px solid #2e2c28;
-  border-radius: 20px;
-  padding: 32px;
-  max-width: 520px;
-  width: 100%;
+  background: #1a1915; border: 1px solid #2e2c28;
+  border-radius: 20px; padding: 32px; max-width: 520px; width: 100%;
 }
 h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: #e8a838; }
 .subtitle { color: #9a948a; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px; }
 label { display: block; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: #9a948a; margin-bottom: 8px; }
-input, textarea {
-  width: 100%;
-  background: #242320;
-  border: 1px solid #2e2c28;
-  border-radius: 10px;
-  color: #f0ece4;
-  font-family: inherit;
-  font-size: 1rem;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-  outline: none;
-  transition: border-color 0.2s;
+input, textarea, select {
+  width: 100%; background: #242320; border: 1px solid #2e2c28;
+  border-radius: 10px; color: #f0ece4; font-family: inherit;
+  font-size: 1rem; padding: 14px 16px; margin-bottom: 16px;
+  outline: none; transition: border-color 0.2s; appearance: none;
 }
-input:focus, textarea:focus { border-color: #e8a838; }
+input:focus, textarea:focus, select:focus { border-color: #e8a838; }
 textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239a948a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+select option { background: #242320; }
+select:disabled { opacity: 0.5; cursor: not-allowed; }
 button {
-  width: 100%;
-  background: #e8a838;
-  border: none;
-  border-radius: 10px;
-  color: #0f0e0c;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 16px;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-bottom: 10px;
+  width: 100%; background: #e8a838; border: none; border-radius: 10px;
+  color: #0f0e0c; font-family: inherit; font-size: 1rem; font-weight: 700;
+  padding: 16px; cursor: pointer; transition: background 0.2s; margin-bottom: 10px;
 }
 button:hover { background: #d09828; }
 button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
 .btn-secondary {
-  background: #242320;
-  color: #9a948a;
-  border: 1px solid #2e2c28;
-  font-size: 0.85rem;
-  padding: 12px;
+  background: #242320; color: #9a948a; border: 1px solid #2e2c28;
+  font-size: 0.85rem; padding: 12px;
 }
 .btn-secondary:hover { background: #2e2c28; color: #f0ece4; }
 .status {
-  margin-top: 16px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  display: none;
+  margin-top: 16px; padding: 12px 16px; border-radius: 10px;
+  font-size: 0.9rem; display: none;
 }
 .status.success { background: #0a3d1f; color: #4ade80; border: 1px solid #166534; display: block; }
 .status.error   { background: #3d0a0a; color: #f87171; border: 1px solid #991b1b; display: block; }
@@ -89,6 +61,7 @@ button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
 .tab.active { background: #e8a838; border-color: #e8a838; color: #0f0e0c; font-weight: 700; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
+.loading-recipes { color: #9a948a; font-size: 0.85rem; font-style: italic; margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -105,7 +78,7 @@ button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
 
   <div id="mainScreen">
     <h1>🍝 Gestisci Ricette</h1>
-    <p class="subtitle">Aggiungi una nuova ricetta o completa una esistente con ingredienti e procedimento.</p>
+    <p class="subtitle">Aggiungi una nuova ricetta o completa una esistente.</p>
 
     <div class="tabs">
       <button class="tab active" onclick="switchTab('nuova', this)">+ Nuova ricetta</button>
@@ -129,12 +102,22 @@ button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
 
     <!-- TAB: COMPLETA RICETTA ESISTENTE -->
     <div class="tab-content" id="tab-completa">
-      <label>Nome esatto della ricetta *</label>
-      <input type="text" id="existTitle" placeholder="es. Tonno marinato" autocomplete="off">
-      <p class="hint">Scrivi esattamente come appare nel sito</p>
+      <div id="loadingMsg" class="loading-recipes">Carico lista ricette...</div>
 
-      <label>Ingredienti</label>
-      <textarea id="existIngredienti" placeholder="200g tonno fresco&#10;Olio extravergine&#10;Limone&#10;Erbe aromatiche"></textarea>
+      <div id="selectorsWrap" style="display:none">
+        <label>Categoria</label>
+        <select id="selectCat" onchange="filterByCategory()">
+          <option value="">— Seleziona categoria —</option>
+        </select>
+
+        <label>Ricetta</label>
+        <select id="selectRicetta" disabled>
+          <option value="">— Prima seleziona una categoria —</option>
+        </select>
+      </div>
+
+      <label style="margin-top:4px">Ingredienti</label>
+      <textarea id="existIngredienti" placeholder="200g tonno fresco&#10;Olio extravergine&#10;Limone"></textarea>
       <p class="hint">Un ingrediente per riga</p>
 
       <label>Procedimento</label>
@@ -157,20 +140,96 @@ const OWNER = 'edoardobottai78';
 const REPO  = 'Ricette';
 const TOKEN_KEY = 'gh_token_ricette';
 
+// Stesse categorie del sito
+const CATEGORY_RULES = [
+  { cat: 'Dolci & Dessert',         re: /torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti/ },
+  { cat: 'Pizza & Focaccia',         re: /pizza|focaccia|schiacciata/ },
+  { cat: 'Tacos & Street Food',      re: /tacos|taco|nachos|cono|coni|tramezzini/ },
+  { cat: 'Panini & Piadine',         re: /panino|piadina|bun |burger|tartina/ },
+  { cat: 'Primi Piatti',             re: /pasta|spaghetti|spaghetto|tagliatelle|pappardelle|rigatoni|paccheri|mezze maniche|tonnarelli|risotto|gnocchi|lasagne|ravioli|tortelli|cappellacci|passatelli|cous cous|riso |minestra|zuppa di|gnocco/ },
+  { cat: 'Secondi Piatti',           re: /filetto|polpo|polpette|cozze fritte|cavolo cappuccio|bocconcini di pollo|jarret|fegatini|arancina|arancine|cecina gamberi|cannolo al nero|spaghetto mayo|tonno cbt|maialino|passata di ceci|polenta|cozze pesto/ },
+  { cat: 'Zuppe & Vellutate',        re: /zuppetta|zuppa|crema di|vellutata|chowder|brodetto|brodo|minestra riso|passata/ },
+  { cat: 'Antipasti & Stuzzichini',  re: /.*/ },
+];
+
+function categorize(title) {
+  const t = title.toLowerCase();
+  for (const { cat, re } of CATEGORY_RULES) {
+    if (re.test(t)) return cat;
+  }
+  return 'Antipasti & Stuzzichini';
+}
+
+let allRecipes = []; // { title, cat }
+
 function init() {
   const token = localStorage.getItem(TOKEN_KEY);
   document.getElementById(token ? 'mainScreen' : 'setupScreen').style.display = 'block';
+  if (token) loadRecipes();
+}
+
+async function loadRecipes() {
+  try {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/ricette.txt`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const data = await res.json();
+    const text = atob(data.content.replace(/\n/g, ''));
+    allRecipes = [];
+    for (const line of text.split('\n')) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const title = t.includes('|') ? t.split('|')[0].trim() : t;
+      allRecipes.push({ title, cat: categorize(title) });
+    }
+    allRecipes.sort((a, b) => a.title.localeCompare(b.title, 'it'));
+
+    // Popola categorie
+    const catSel = document.getElementById('selectCat');
+    catSel.innerHTML = '<option value="">— Seleziona categoria —</option>';
+    const cats = [...new Set(allRecipes.map(r => r.cat))].sort();
+    cats.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      catSel.appendChild(opt);
+    });
+
+    document.getElementById('loadingMsg').style.display = 'none';
+    document.getElementById('selectorsWrap').style.display = 'block';
+  } catch(e) {
+    document.getElementById('loadingMsg').textContent = 'Errore nel caricamento ricette.';
+  }
+}
+
+function filterByCategory() {
+  const cat = document.getElementById('selectCat').value;
+  const ricSel = document.getElementById('selectRicetta');
+  ricSel.innerHTML = '';
+  if (!cat) {
+    ricSel.innerHTML = '<option value="">— Prima seleziona una categoria —</option>';
+    ricSel.disabled = true;
+    return;
+  }
+  const filtered = allRecipes.filter(r => r.cat === cat);
+  ricSel.innerHTML = '<option value="">— Seleziona ricetta —</option>';
+  filtered.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.title; opt.textContent = r.title;
+    ricSel.appendChild(opt);
+  });
+  ricSel.disabled = false;
 }
 
 function saveToken() {
   const token = document.getElementById('tokenInput').value.trim();
   if (!token.startsWith('ghp_')) {
-    showSetupStatus('Token non valido. Deve iniziare con ghp_', 'error');
-    return;
+    showSetupStatus('Token non valido. Deve iniziare con ghp_', 'error'); return;
   }
   localStorage.setItem(TOKEN_KEY, token);
   document.getElementById('setupScreen').style.display = 'none';
   document.getElementById('mainScreen').style.display = 'block';
+  loadRecipes();
 }
 
 function resetToken() {
@@ -197,7 +256,7 @@ function titleToFilename(title) {
     .trim().replace(/\s+/g,'-') + '.txt';
 }
 
-function buildRecipeContent(title, ingredienti, procedimento) {
+function buildRecipeContent(ingredienti, procedimento) {
   let content = '';
   const ingLines = ingredienti.trim().split('\n').map(l => l.trim()).filter(Boolean);
   const procText = procedimento.trim();
@@ -239,9 +298,7 @@ async function addNewRecipe() {
 
   const btn = document.getElementById('btnNuova');
   btn.disabled = true;
-
   try {
-    // 1. Aggiungi titolo a ricette.txt
     showStatus('Aggiorno lista ricette...', 'loading');
     const fileData = await githubRequest('ricette.txt', 'GET');
     const currentContent = atob(fileData.content.replace(/\n/g,''));
@@ -252,8 +309,7 @@ async function addNewRecipe() {
       sha: fileData.sha
     });
 
-    // 2. Crea file ricetta se ci sono ingredienti o procedimento
-    const recipeContent = buildRecipeContent(title, ingredienti, procedimento);
+    const recipeContent = buildRecipeContent(ingredienti, procedimento);
     if (recipeContent.trim()) {
       showStatus('Salvo ingredienti e procedimento...', 'loading');
       const filename = 'ricette/' + titleToFilename(title);
@@ -267,6 +323,7 @@ async function addNewRecipe() {
     document.getElementById('newTitle').value = '';
     document.getElementById('newIngredienti').value = '';
     document.getElementById('newProcedimento').value = '';
+    loadRecipes(); // aggiorna la lista
   } catch(e) {
     showStatus('❌ ' + e.message, 'error');
   }
@@ -274,38 +331,38 @@ async function addNewRecipe() {
 }
 
 async function completeRecipe() {
-  const title = document.getElementById('existTitle').value.trim();
+  const title = document.getElementById('selectRicetta').value;
   const ingredienti = document.getElementById('existIngredienti').value;
   const procedimento = document.getElementById('existProcedimento').value;
-  if (!title) { showStatus('Inserisci il nome della ricetta.', 'error'); return; }
+  if (!title) { showStatus('Seleziona una ricetta dal menu.', 'error'); return; }
 
-  const recipeContent = buildRecipeContent(title, ingredienti, procedimento);
+  const recipeContent = buildRecipeContent(ingredienti, procedimento);
   if (!recipeContent.trim()) { showStatus('Aggiungi almeno ingredienti o procedimento.', 'error'); return; }
 
   const btn = document.getElementById('btnCompleta');
   btn.disabled = true;
   showStatus('Salvo ricetta...', 'loading');
-
   try {
     const filename = 'ricette/' + titleToFilename(title);
-    // Controlla se esiste già (per aggiornarlo con SHA)
     let sha = undefined;
     try {
       const existing = await githubRequest(filename, 'GET');
       sha = existing.sha;
-    } catch(e) { /* file non esiste, lo creiamo */ }
+    } catch(e) {}
 
     const body = {
       message: `📋 Ricetta completa: ${title}`,
       content: btoa(unescape(encodeURIComponent(recipeContent)))
     };
     if (sha) body.sha = sha;
-
     await githubRequest(filename, 'PUT', body);
+
     showStatus(`✅ Ricetta di "${title}" salvata! Il sito si aggiorna in ~60 secondi.`, 'success');
-    document.getElementById('existTitle').value = '';
     document.getElementById('existIngredienti').value = '';
     document.getElementById('existProcedimento').value = '';
+    document.getElementById('selectCat').value = '';
+    document.getElementById('selectRicetta').innerHTML = '<option value="">— Prima seleziona una categoria —</option>';
+    document.getElementById('selectRicetta').disabled = true;
   } catch(e) {
     showStatus('❌ ' + e.message, 'error');
   }
@@ -314,13 +371,11 @@ async function completeRecipe() {
 
 function showStatus(msg, type) {
   const el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = 'status ' + type;
+  el.textContent = msg; el.className = 'status ' + type;
 }
 function showSetupStatus(msg, type) {
   const el = document.getElementById('setupStatus');
-  el.textContent = msg;
-  el.className = 'status ' + type;
+  el.textContent = msg; el.className = 'status ' + type;
 }
 
 document.addEventListener('DOMContentLoaded', init);

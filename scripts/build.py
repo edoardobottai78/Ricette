@@ -81,7 +81,8 @@ def title_to_filename(title):
     t = t[:80] if len(t) > 80 else t
     return t + '.txt'
 
-def categorize(title):
+30
+(title):
     t = title.lower()
     for cat, pattern in CATEGORY_RULES:
         if re.search(pattern, t):

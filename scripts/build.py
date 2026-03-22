@@ -7,7 +7,7 @@ OUTPUT_FILE = Path("index.html")
 RICETTE_DIR = Path("ricette")  # cartella con i file .txt delle ricette
 
 CATEGORY_RULES = [
-    ("Dolci & Dessert",         r"torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|zuppetta di fragole|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti"),
+    ("Dolci & Dessert",         r"torta|dolce|cupcake|biscotto|castagnaccio|sablÃ©|sable|zuppetta di fragole|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti"),
     ("Pizza & Focaccia",        r"pizza|focaccia|schiacciata"),
     ("Tacos & Street Food",     r"tacos|taco|nachos|cono|coni|tramezzini"),
     ("Panini & Piadine",        r"panino|piadina|bun |burger|tartina"),
@@ -18,18 +18,18 @@ CATEGORY_RULES = [
 ]
 
 CAT_META = {
-    "Antipasti & Stuzzichini": {"emoji": "🫒", "color": "#C4853A", "svg": '<circle cx="32" cy="32" r="12" fill="none" stroke="currentColor" stroke-width="2.5"/><ellipse cx="32" cy="32" rx="6" ry="18" fill="none" stroke="currentColor" stroke-width="2"/><line x1="32" y1="14" x2="38" y2="8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'},
-    "Primi Piatti":            {"emoji": "🍝", "color": "#C4622D", "svg": '<path d="M16 36 Q24 20 32 36 Q40 20 48 36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M18 30 Q26 16 32 30 Q38 16 46 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="32" cy="40" rx="16" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>'},
-    "Secondi Piatti":          {"emoji": "🥩", "color": "#2D8653", "svg": '<path d="M20 38 Q20 24 32 22 Q44 24 44 38 Q44 46 32 46 Q20 46 20 38Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M26 22 Q24 14 28 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M36 22 Q40 14 38 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'},
-    "Pizza & Focaccia":        {"emoji": "🍕", "color": "#4A6ED4", "svg": '<path d="M32 16 L50 46 L14 46 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><circle cx="28" cy="36" r="3" fill="currentColor" opacity=".5"/><circle cx="36" cy="30" r="2.5" fill="currentColor" opacity=".5"/><circle cx="32" cy="40" r="2" fill="currentColor" opacity=".5"/>'},
-    "Panini & Piadine":        {"emoji": "🥖", "color": "#A855C7", "svg": '<path d="M16 36 Q16 26 32 24 Q48 26 48 36 Q48 40 32 42 Q16 40 16 36Z" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="33" x2="42" y2="33" stroke="currentColor" stroke-width="1.5" opacity=".5"/><path d="M20 30 Q32 26 44 30" stroke="currentColor" stroke-width="1.5" opacity=".4" fill="none"/>'},
-    "Tacos & Street Food":     {"emoji": "🌮", "color": "#B05A1A", "svg": '<path d="M16 40 Q16 24 32 20 Q48 24 48 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="40" x2="48" y2="40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="26" cy="34" r="2.5" fill="currentColor" opacity=".5"/><circle cx="36" cy="31" r="2" fill="currentColor" opacity=".5"/>'},
-    "Dolci & Dessert":         {"emoji": "🍮", "color": "#D45A8A", "svg": '<path d="M22 42 L24 28 Q32 20 40 28 L42 42 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="32" cy="42" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 20 Q34 14 32 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
-    "Zuppe & Vellutate":       {"emoji": "🍲", "color": "#1A8099", "svg": '<path d="M18 34 Q18 46 32 46 Q46 46 46 34 L44 28 L20 28 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><line x1="14" y1="28" x2="50" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M26 24 Q26 18 28 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M36 24 Q36 18 38 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>'},
+    "Antipasti & Stuzzichini": {"emoji": "ð«", "color": "#C4853A", "svg": '<circle cx="32" cy="32" r="12" fill="none" stroke="currentColor" stroke-width="2.5"/><ellipse cx="32" cy="32" rx="6" ry="18" fill="none" stroke="currentColor" stroke-width="2"/><line x1="32" y1="14" x2="38" y2="8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'},
+    "Primi Piatti":            {"emoji": "ð", "color": "#C4622D", "svg": '<path d="M16 36 Q24 20 32 36 Q40 20 48 36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M18 30 Q26 16 32 30 Q38 16 46 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="32" cy="40" rx="16" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>'},
+    "Secondi Piatti":          {"emoji": "ð¥©", "color": "#2D8653", "svg": '<path d="M20 38 Q20 24 32 22 Q44 24 44 38 Q44 46 32 46 Q20 46 20 38Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M26 22 Q24 14 28 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M36 22 Q40 14 38 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'},
+    "Pizza & Focaccia":        {"emoji": "ð", "color": "#4A6ED4", "svg": '<path d="M32 16 L50 46 L14 46 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><circle cx="28" cy="36" r="3" fill="currentColor" opacity=".5"/><circle cx="36" cy="30" r="2.5" fill="currentColor" opacity=".5"/><circle cx="32" cy="40" r="2" fill="currentColor" opacity=".5"/>'},
+    "Panini & Piadine":        {"emoji": "ð¥", "color": "#A855C7", "svg": '<path d="M16 36 Q16 26 32 24 Q48 26 48 36 Q48 40 32 42 Q16 40 16 36Z" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="33" x2="42" y2="33" stroke="currentColor" stroke-width="1.5" opacity=".5"/><path d="M20 30 Q32 26 44 30" stroke="currentColor" stroke-width="1.5" opacity=".4" fill="none"/>'},
+    "Tacos & Street Food":     {"emoji": "ð®", "color": "#B05A1A", "svg": '<path d="M16 40 Q16 24 32 20 Q48 24 48 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="40" x2="48" y2="40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="26" cy="34" r="2.5" fill="currentColor" opacity=".5"/><circle cx="36" cy="31" r="2" fill="currentColor" opacity=".5"/>'},
+    "Dolci & Dessert":         {"emoji": "ð®", "color": "#D45A8A", "svg": '<path d="M22 42 L24 28 Q32 20 40 28 L42 42 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="32" cy="42" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 20 Q34 14 32 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
+    "Zuppe & Vellutate":       {"emoji": "ð²", "color": "#1A8099", "svg": '<path d="M18 34 Q18 46 32 46 Q46 46 46 34 L44 28 L20 28 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><line x1="14" y1="28" x2="50" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M26 24 Q26 18 28 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M36 24 Q36 18 38 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>'},
 }
 
 def title_to_filename(title):
-    """Converti titolo in nome file: 'Risotto al tartufo' -> 'risotto-al-tartufo'"""
+    """Converti titolo in nome file, max 80 caratteri"""
     t = title.lower()
     t = re.sub(r'[àáâã]', 'a', t)
     t = re.sub(r'[èéêë]', 'e', t)
@@ -38,6 +38,8 @@ def title_to_filename(title):
     t = re.sub(r'[ùúûü]', 'u', t)
     t = re.sub(r'[^a-z0-9\s-]', '', t)
     t = re.sub(r'\s+', '-', t.strip())
+    # Limita a 80 caratteri (+ ".txt" = 84 totali, ben sotto il limite di 255)
+    t = t[:80] if len(t) > 80 else t
     return t + '.txt'
 
 def parse_recipe_file(content):
@@ -184,7 +186,7 @@ body{{background:var(--bg);color:var(--ink);font-family:'Cormorant Garamond',Geo
 .section-label{{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}}
 .ingredienti-list{{list-style:none;margin-bottom:32px;}}
 .ingredienti-list li{{padding:10px 0;border-bottom:1px solid var(--border);font-size:1.05rem;display:flex;align-items:baseline;gap:10px;}}
-.ingredienti-list li::before{{content:'—';color:var(--accent);font-size:.9rem;flex-shrink:0;}}
+.ingredienti-list li::before{{content:'â';color:var(--accent);font-size:.9rem;flex-shrink:0;}}
 /* PROCEDIMENTO */
 .procedimento-text{{font-size:1.05rem;line-height:1.9;color:#4A4540;white-space:pre-wrap;font-style:italic;}}
 .modal-empty{{font-size:1rem;color:var(--muted);font-style:italic;}}
@@ -203,7 +205,7 @@ body{{background:var(--bg);color:var(--ink);font-family:'Cormorant Garamond',Geo
 <header class="site-header">
   <div class="header-left">
     <h1>Le Mie<br><em>Ricette</em></h1>
-    <p class="header-meta">Collezione personale &nbsp;·&nbsp; Sempre aggiornata</p>
+    <p class="header-meta">Collezione personale &nbsp;Â·&nbsp; Sempre aggiornata</p>
   </div>
   <div class="header-right">
     <div class="total-count">{total}</div>
@@ -212,7 +214,7 @@ body{{background:var(--bg);color:var(--ink);font-family:'Cormorant Garamond',Geo
 </header>
 <div class="search-wrap">
   <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-  <input type="text" id="searchInput" placeholder="Cerca una ricetta…" oninput="filterRecipes(this.value)">
+  <input type="text" id="searchInput" placeholder="Cerca una ricettaâ¦" oninput="filterRecipes(this.value)">
 </div>
 <nav class="cat-nav" id="catNav"></nav>
 <main class="main" id="main"></main>
@@ -289,7 +291,7 @@ function buildCatBlock(cat,recipes){{
     li.innerHTML=`
       <span class="recipe-num">${{String(i+1).padStart(2,'0')}}</span>
       <span class="recipe-name">${{r.title}}</span>
-      ${{hasContent?'<span class="recipe-has-content">● RICETTA COMPLETA</span>':''}}
+      ${{hasContent?'<span class="recipe-has-content">â RICETTA COMPLETA</span>':''}}
       <svg class="recipe-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
     li.onclick=()=>openModal(r);
     ul.appendChild(li);
@@ -370,10 +372,10 @@ def main():
     text = INPUT_FILE.read_text(encoding="utf-8")
     recipes = parse_recipes(text)
     con_ricetta = sum(1 for r in recipes if r['ingredienti'] or r['procedimento'])
-    print(f"✓ Ricette trovate: {len(recipes)} (con ricetta completa: {con_ricetta})")
+    print(f"â Ricette trovate: {len(recipes)} (con ricetta completa: {con_ricetta})")
     html = build_html(recipes)
     OUTPUT_FILE.write_text(html, encoding="utf-8")
-    print(f"✓ index.html generato ({len(html):,} bytes)")
+    print(f"â index.html generato ({len(html):,} bytes)")
 
 if __name__ == "__main__":
     main()

@@ -16,11 +16,11 @@ Lasagne croccanti caprino besciamella al praga e verdure
 Gnocchi patate carciofi e fonduta di parmigiano
 Spaghetti pomodoro peperoncino cozze
 Panino crema parmigiano, crema carciofi, nocciole e prosciutto
-Panino paté olive stracciatella bresaola e fiori di zucca
+Panino patÃ© olive stracciatella bresaola e fiori di zucca
 Panino/ focaccia cicoria ripassata, pecorino romano e mortadella
 Panino burrata alici e puntarelle
 Tacos pollo finto fritto, mayonese al chipotle/ coriandolo cipolla caramellata piccante e guacamole
-Crocchetta baccalà e formaggio tenero di capra
+Crocchetta baccalÃ  e formaggio tenero di capra
 Patate fritte tartufo e parmigiano
 Cheese burger roll
 Cupcake
@@ -51,7 +51,7 @@ Spaghetti in carrozza (spaghetti coppati e fritti) con acciughe e salsa di pomod
 Financiere/ biscuit pistacchio, cremoso maracuja e pera candita
 Risotto cacio e pepe con carciofo croccante
 Pizza squaquerone fiori di zucca e alici
-Fondo di carciofo con baccalà mantecato su crema di carciofi e parmigiano
+Fondo di carciofo con baccalÃ  mantecato su crema di carciofi e parmigiano
 Mezze maniche pancetta croccante, fave e crema di pecorino
 Carpaccio ricciola riccio e wasabi fresco
 Aglio olio peperoncino burrata e tartare di gambero rosso
@@ -78,21 +78,21 @@ Risotto salsiccia Lucanega e porro fritto
 Cavolo cappuccio viola polpo grigliato mela avocado dressing limone olio e senape
 Castagnaccio: 500G farina castagne, 650 cl acqua, 1,5 bicchiere di latte, 40 gr olio una volta messo in teglia. 170 non ventilato per 30-35 min
 400gr fegatini pollo. Mezza cipolla mezza carota sedano (poco) 2 salvia 4 capperi
-Soffritto, aggiungi fegatini (10 min risolare), mestolo brodo , sfumare con 1 bicchiere vino bianco secco. Frullate il composto senza sugo. Quando la consistenza è giusta si aggiunge la pasta d'acciughe
+Soffritto, aggiungi fegatini (10 min risolare), mestolo brodo , sfumare con 1 bicchiere vino bianco secco. Frullate il composto senza sugo. Quando la consistenza Ã¨ giusta si aggiunge la pasta d'acciughe
 Cecina gamberi rossi pomodorini confit e ricotta
 Riso/ paccheri nero di seppia, gambero rosso e crema di cima di rapa
 Passatelli brodetto/ fumetto di pesce, cozze, vongole e gamberi crudi
-Cannolo al nero di seppia baccalà mantecato bottarga e limoni salati
+Cannolo al nero di seppia baccalÃ  mantecato bottarga e limoni salati
 Panino mortadella crema parmigiano carciofo croccante e olio al tartufo
 Crema di patate carciofo fritto e bottarga
 Bicchiere composta di frutti di bosco, crema pasticciera al formaggio e lime, crumble
 Polenta Nero di seppia con calamaretti aglio olio e peperoncino con pomodorini gialli e zest di limone
-Polenta baccalà mantecato e zuppetta di vongole
-Passata di ceci, spinaci uvetta e pinoli e baccalà alla piastra
+Polenta baccalÃ  mantecato e zuppetta di vongole
+Passata di ceci, spinaci uvetta e pinoli e baccalÃ  alla piastra
 Risotto cavolo nero, gorgonzola/ fontina cozze
 Tonnarelli cacio pepe e cozze
 Tacos nduja fonduta di scamorza affumicata olive nere e scorza di limone/ cedro cicoria ripassata
-Tartina di polenta al nero di seppia e baccalà mantecato
+Tartina di polenta al nero di seppia e baccalÃ  mantecato
 Tartina di polenta bianca e seppie
 Tartina di polenta polpo e sua mayonese
 Fegatini di pollo
@@ -114,7 +114,7 @@ Arancina sarde e finocchietto
 Risotto pecorino fichi e prosciutto croccante
 Pizza zucca provola affumicata/ gorgonzola e speck
 Pan di Spagna mousse allo yogurt composta di mango con crumble
-Sable' alla nocciola (doppio anello) bignè chantilly e gianduia arachidi e mousse all'arancia
+Sable' alla nocciola (doppio anello) bignÃ¨ chantilly e gianduia arachidi e mousse all'arancia
 Pizza provola affumicata crema di cipolla pecorino e pancetta
 Sorbetto melograno e mousse allo yogurt greco
 Zabaione salato mazzancolla al vapore cialda/ crumble capperi
@@ -136,7 +136,7 @@ Frolla al cioccolato marmellata agrumi crema e frutti di bosco
 Ostrica vapore patata e friggitello
 Chili con carne - | https://ricette.giallozafferano.it/Chili-con-carne.html
 Chili vegetariano con fagioli neri e peperoni | https://blog.giallozafferano.it/incucinaconilnaturopata/chili-vegetariano-con-fagioli-neri-e-peperoni/
-Profumi d’oriente con l’originale salsa ponzu | https://www.nonnapaperina.it/2019/05/profumi-doriente-con-loriginale-salsa-ponzu/
+Profumi dâoriente con lâoriginale salsa ponzu | https://www.nonnapaperina.it/2019/05/profumi-doriente-con-loriginale-salsa-ponzu/
 Pizza Bonci, | https://blog.giallozafferano.it/dulcisinforno/pizza-bonci/
 Zuppetta di fragole con zabaione al marsala e crumble al pepe di Sichuan. | https://www.sicilianicreativiincucina.it/zuppetta-di-fragole-con-semifreddo-allo-zabaione-di-santin/
 Salsa ponzu: ricetta ed ingredienti per farla in casa | https://www.tuttogreen.it/salsa-ponzu-ricetta-ed-ingredienti/
@@ -167,7 +167,7 @@ Maionese di polpo | https://www.cookist.it/maionese-di-polpo/
 TAGLIATELLE AI FUNGHI PORCINI CON SALSICCE  E SALSA DI CACIOCAVALLO | https://blog.giallozafferano.it/martanoskitchen/tagliatelle-autunnali/
 Pull Apart Meatball Sliders - Recipe | Traeger Grills | https://www.traeger.com/recipes/pull-apart-meatball-sliders
 Risotto con &#39;nduja | Ricetta Chef in Camicia | https://www.chefincamicia.com/ricette/risotto-con-nduja
-jalapeño jelly | https://www.makingcentsmatter.com/how-to-make-jalapeno-jelly/
+jalapeÃ±o jelly | https://www.makingcentsmatter.com/how-to-make-jalapeno-jelly/
 Stinco alla birra | Chef in Camicia | https://www.chefincamicia.com/ricette/stinco-alla-birra
 Jalapeno Pepper Jam | https://www.pinterest.com
 Mojito shots - Gelatine morbide al Mojito | https://blog.giallozafferano.it/lifferia/mojito-shots/
@@ -211,7 +211,7 @@ Pollo in salsa teriyaki | https://blog.giallozafferano.it/delizieinpentola/pollo
 la torta Santa Rosa | https://tg24.sky.it/spettacolo/tv-show/alessandro-borghese-kitchen-sound/2019/04/30/alessandro-borghese-ricetta-torta-santa-rosa-sal-de-riso.html
 Lemon Blueberry and Ricotta Pancakes | http://www.jocooks.com/breakfast-2/lemon-blueberry-ricotta-pancakes/
 Caesar salad senza uova, | http://www.chedonna.it/2017/07/20/caesar-salad-senza-uova/
-Crocchette di baccalà | http://www.cucinare.meglio.it/ricetta-crocchette_di_baccala_-ricetta_portoghese-brasiliana-.html
+Crocchette di baccalÃ  | http://www.cucinare.meglio.it/ricetta-crocchette_di_baccala_-ricetta_portoghese-brasiliana-.html
 Spicy Grilled Shrimp Tacos | http://www.thehealthymaven.com/2015/07/spicy-grilled-shrimp-tacos-with-all-the-fixins.html
 Homemade Ketchup | http://cheerykitchen.com/best-homemade-ketchup/
 Loaded Chicken Taco Cups | http://www.thecookierookie.com/loaded-chicken-taco-cups/
@@ -227,7 +227,7 @@ Mousse di mozzarella di bufala con pomodorini secchi | http://blog.giallozaffera
 I rotolini di salmone su crema di avocado | http://www.gustissimo.it/ricette/antipasti-pesce/rotolini-di-salmone-su-crema-di-avocado.htm
 bicchierini italiani bufala rucola datterini #pinxos | http://lasalsaaurora.com/tag/rucola/
 Baked Meatballs with Mozzarella! Italian | http://www.southyourmouth.com/2015/05/baked-meatballs-with-mozzarella.html
-Ravioli al nero con baccalà mantecato e burro aromatico | http://www.conunpocodizucchero.it/2009/12/ravioli-al-nero-con-baccala-mantecato-e-burro-aromatico.html
+Ravioli al nero con baccalÃ  mantecato e burro aromatico | http://www.conunpocodizucchero.it/2009/12/ravioli-al-nero-con-baccala-mantecato-e-burro-aromatico.html
 Ultra crispy baked potato | https://www.dinneratthezoo.com/baked-potato-wedges/
 Bayou Crab Chowder | http://www.akitchenhoorsadventures.com/bayou-crab-chowder/
 Summer mojitos / | http://pubx.co/qX5HbS
@@ -242,3 +242,4 @@ Il risotto con pere, scamorza affumicata e noci | https://cucina.fidelityhouse.e
 Ham and Potato Corn Chowder | http://www.closetcooking.com/2015/04/ham-and-potato-corn-chowder.html
 ravioli al pecorino di fossa e ricotta | http://www.cavolettodibruxelles.it/2005/11/ravioli-al-formaggio-di-fossa-con-salsa-di-pere-e-balsamico
 Mashed potatoes | http://tiphero.com/mashed-potato-cheese-bites/
+Pop corn cavolfiore

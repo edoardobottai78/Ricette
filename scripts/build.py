@@ -4,6 +4,7 @@ from pathlib import Path
 
 INPUT_FILE  = Path("ricette.txt")
 OUTPUT_FILE = Path("index.html")
+RICETTE_DIR = Path("ricette")
 
 CATEGORY_RULES = [
     ("Dolci & Dessert",         r"torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|zuppetta di fragole|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti"),
@@ -34,6 +35,47 @@ def categorize(title):
             return cat
     return "Antipasti & Stuzzichini"
 
+# ── MODIFICA 1: legge il file ricette/<slug>.txt se esiste ──────────────────
+def title_to_filename(title):
+    t = title.lower()
+    for a, b in [('à','a'),('á','a'),('â','a'),('ã','a'),('è','e'),('é','e'),('ê','e'),('ë','e'),
+                 ('ì','i'),('í','i'),('î','i'),('ï','i'),('ò','o'),('ó','o'),('ô','o'),('õ','o'),
+                 ('ù','u'),('ú','u'),('û','u'),('ü','u')]:
+        t = t.replace(a, b)
+    t = re.sub(r'[^a-z0-9\s-]', '', t)
+    t = t.strip()
+    t = re.sub(r'\s+', '-', t)
+    return t + '.txt'
+
+def load_recipe_detail(title):
+    """Restituisce {'ingredienti': [...], 'procedimento': str} oppure None."""
+    if not RICETTE_DIR.exists():
+        return None
+    filepath = RICETTE_DIR / title_to_filename(title)
+    if not filepath.exists():
+        return None
+    try:
+        text = filepath.read_text(encoding="utf-8")
+        ingredienti = []
+        procedimento = ""
+        section = None
+        for line in text.splitlines():
+            l = line.strip()
+            if l == "INGREDIENTI":
+                section = "ing"
+            elif l == "PROCEDIMENTO":
+                section = "proc"
+            elif section == "ing" and l.startswith("- "):
+                ingredienti.append(l[2:])
+            elif section == "proc" and l:
+                procedimento += l + "\n"
+        if ingredienti or procedimento:
+            return {"ingredienti": ingredienti, "procedimento": procedimento.strip()}
+    except Exception:
+        pass
+    return None
+# ───────────────────────────────────────────────────────────────────────────
+
 def parse_recipes(text):
     recipes = []
     seen = set()
@@ -54,7 +96,10 @@ def parse_recipes(text):
             continue
         seen.add(key)
         cat = categorize(title)
-        recipes.append({"id": rid, "title": title, "cat": cat, "note": note})
+        # ── MODIFICA 1 (continua): aggiunge detail se presente ──
+        detail = load_recipe_detail(title)
+        recipes.append({"id": rid, "title": title, "cat": cat, "note": note, "detail": detail})
+        # ────────────────────────────────────────────────────────
         rid += 1
     return recipes
 
@@ -337,6 +382,41 @@ body {{
   color: var(--muted);
   font-style: italic;
 }}
+/* ── MODIFICA 2: stili ingredienti/procedimento nel modal ── */
+.modal-section-title {{
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  margin-top: 24px;
+}}
+.modal-section-title:first-child {{ margin-top: 0; }}
+.modal-ingredienti {{
+  list-style: none;
+  margin-bottom: 8px;
+}}
+.modal-ingredienti li {{
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #4A4540;
+  padding-left: 16px;
+  position: relative;
+}}
+.modal-ingredienti li::before {{
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}}
+.modal-procedimento {{
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #4A4540;
+  white-space: pre-wrap;
+}}
+/* ─────────────────────────────────────────────────────────── */
 
 /* NO RESULTS */
 .no-results {{
@@ -424,7 +504,6 @@ function buildNav() {{
 
 function buildSections() {{
   const main = document.getElementById('main');
-  // "Tutte" section
   const allSec = document.createElement('div');
   allSec.className = 'cat-block visible';
   allSec.dataset.cat = 'all';
@@ -433,7 +512,6 @@ function buildSections() {{
     if (recipes.length) allSec.appendChild(buildCatBlock(cat, recipes));
   }});
   main.appendChild(allSec);
-  // Individual sections
   CATS.forEach(cat => {{
     const recipes = RECIPES.filter(r => r.cat === cat);
     if (!recipes.length) return;
@@ -461,10 +539,11 @@ function buildCatBlock(cat, recipes) {{
     li.className = 'recipe-row';
     li.dataset.title = r.title.toLowerCase();
     li.dataset.cat = r.cat.toLowerCase();
+    const hasContent = r.detail || (r.note && r.note.trim());
     li.innerHTML = `
       <span class="recipe-num">${{String(i+1).padStart(2,'0')}}</span>
       <span class="recipe-name">${{r.title}}</span>
-      ${{r.note ? '<span class="recipe-badge">RICETTA</span>' : ''}}
+      ${{hasContent ? '<span class="recipe-badge">RICETTA</span>' : ''}}
       <svg class="recipe-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
     li.onclick = () => openModal(r);
     ul.appendChild(li);
@@ -502,9 +581,29 @@ function openModal(r) {{
   document.getElementById('modalCat').textContent = r.cat.toUpperCase();
   document.getElementById('modalTitle').textContent = r.title;
   const noteEl = document.getElementById('modalNote');
-  noteEl.innerHTML = r.note && r.note.trim()
-    ? `<div class="modal-note">${{r.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}}</div>`
-    : `<p class="modal-empty">Nessuna nota aggiunta.</p>`;
+
+  // ── MODIFICA 2: mostra detail se presente, altrimenti note come prima ──
+  if (r.detail) {{
+    let html = '';
+    if (r.detail.ingredienti && r.detail.ingredienti.length > 0) {{
+      html += '<p class="modal-section-title">Ingredienti</p><ul class="modal-ingredienti">';
+      r.detail.ingredienti.forEach(ing => {{
+        html += `<li>${{ing.replace(/</g,'&lt;').replace(/>/g,'&gt;')}}</li>`;
+      }});
+      html += '</ul>';
+    }}
+    if (r.detail.procedimento) {{
+      html += '<p class="modal-section-title">Procedimento</p>';
+      html += `<p class="modal-procedimento">${{r.detail.procedimento.replace(/</g,'&lt;').replace(/>/g,'&gt;')}}</p>`;
+    }}
+    noteEl.innerHTML = html;
+  }} else if (r.note && r.note.trim()) {{
+    noteEl.innerHTML = `<div class="modal-note">${{r.note.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}}</div>`;
+  }} else {{
+    noteEl.innerHTML = `<p class="modal-empty">Nessuna nota aggiunta.</p>`;
+  }}
+  // ──────────────────────────────────────────────────────────────────────
+
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }}

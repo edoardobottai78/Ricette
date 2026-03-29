@@ -160,7 +160,7 @@ function categorize(title) {
   return 'Antipasti & Stuzzichini';
 }
 
-let allRecipes = []; // { title, cat }
+let allRecipes = [];
 
 function init() {
   const token = localStorage.getItem(TOKEN_KEY);
@@ -185,7 +185,6 @@ async function loadRecipes() {
     }
     allRecipes.sort((a, b) => a.title.localeCompare(b.title, 'it'));
 
-    // Popola categorie
     const catSel = document.getElementById('selectCat');
     catSel.innerHTML = '<option value="">— Seleziona categoria —</option>';
     const cats = [...new Set(allRecipes.map(r => r.cat))].sort();
@@ -323,7 +322,7 @@ async function addNewRecipe() {
     document.getElementById('newTitle').value = '';
     document.getElementById('newIngredienti').value = '';
     document.getElementById('newProcedimento').value = '';
-    loadRecipes(); // aggiorna la lista
+    loadRecipes();
   } catch(e) {
     showStatus('❌ ' + e.message, 'error');
   }
@@ -343,6 +342,7 @@ async function completeRecipe() {
   btn.disabled = true;
   showStatus('Salvo ricetta...', 'loading');
   try {
+    // Step 1: salva il file ricette/<slug>.txt
     const filename = 'ricette/' + titleToFilename(title);
     let sha = undefined;
     try {
@@ -356,6 +356,21 @@ async function completeRecipe() {
     };
     if (sha) body.sha = sha;
     await githubRequest(filename, 'PUT', body);
+
+    // ── MODIFICA: touch ricette.txt per triggerare il build ──
+    showStatus('Aggiorno sito...', 'loading');
+    const txtData = await githubRequest('ricette.txt', 'GET');
+    const txtContent = atob(txtData.content.replace(/\n/g, ''));
+    // Rimuove eventuale riga # last-complete precedente e aggiunge quella nuova
+    const cleanContent = txtContent.split('\n').filter(l => !l.startsWith('# last-complete:')).join('\n').trimEnd();
+    const now = new Date().toISOString().slice(0,16).replace('T',' ');
+    const newTxtContent = cleanContent + '\n# last-complete: ' + now + '\n';
+    await githubRequest('ricette.txt', 'PUT', {
+      message: `🔄 Aggiornamento ricetta: ${title}`,
+      content: btoa(unescape(encodeURIComponent(newTxtContent))),
+      sha: txtData.sha
+    });
+    // ─────────────────────────────────────────────────────────
 
     showStatus(`✅ Ricetta di "${title}" salvata! Il sito si aggiorna in ~60 secondi.`, 'success');
     document.getElementById('existIngredienti').value = '';

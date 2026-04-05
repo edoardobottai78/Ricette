@@ -140,7 +140,6 @@ const OWNER = 'edoardobottai78';
 const REPO  = 'Ricette';
 const TOKEN_KEY = 'gh_token_ricette';
 
-// Stesse categorie del sito
 const CATEGORY_RULES = [
   { cat: 'Dolci & Dessert',         re: /torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti/ },
   { cat: 'Pizza & Focaccia',         re: /pizza|focaccia|schiacciata/ },
@@ -252,7 +251,8 @@ function titleToFilename(title) {
     .replace(/[ìíîï]/g,'i').replace(/[òóôõ]/g,'o')
     .replace(/[ùúûü]/g,'u')
     .replace(/[^a-z0-9\s-]/g,'')
-    .trim().replace(/\s+/g,'-') + '.txt';
+    .trim().replace(/\s+/g,'-')
+    .substring(0, 100) + '.txt';
 }
 
 function buildRecipeContent(ingredienti, procedimento) {
@@ -357,11 +357,10 @@ async function completeRecipe() {
     if (sha) body.sha = sha;
     await githubRequest(filename, 'PUT', body);
 
-    // ── MODIFICA: touch ricette.txt per triggerare il build ──
+    // Step 2: touch ricette.txt per triggerare il build automatico
     showStatus('Aggiorno sito...', 'loading');
     const txtData = await githubRequest('ricette.txt', 'GET');
     const txtContent = atob(txtData.content.replace(/\n/g, ''));
-    // Rimuove eventuale riga # last-complete precedente e aggiunge quella nuova
     const cleanContent = txtContent.split('\n').filter(l => !l.startsWith('# last-complete:')).join('\n').trimEnd();
     const now = new Date().toISOString().slice(0,16).replace('T',' ');
     const newTxtContent = cleanContent + '\n# last-complete: ' + now + '\n';
@@ -370,7 +369,6 @@ async function completeRecipe() {
       content: btoa(unescape(encodeURIComponent(newTxtContent))),
       sha: txtData.sha
     });
-    // ─────────────────────────────────────────────────────────
 
     showStatus(`✅ Ricetta di "${title}" salvata! Il sito si aggiorna in ~60 secondi.`, 'success');
     document.getElementById('existIngredienti').value = '';

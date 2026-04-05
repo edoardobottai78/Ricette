@@ -51,7 +51,7 @@ Spaghetti in carrozza (spaghetti coppati e fritti) con acciughe e salsa di pomod
 Financiere/ biscuit pistacchio, cremoso maracuja e pera candita
 Risotto cacio e pepe con carciofo croccante
 Pizza squaquerone fiori di zucca e alici
-Fondo di carciofo con baccala  mantecato su crema di carciofi e parmigiano
+Fondo di carciofo con baccalaÂ  mantecato su crema di carciofi e parmigiano
 Mezze maniche pancetta croccante, fave e crema di pecorino
 Carpaccio ricciola riccio e wasabi fresco
 Aglio olio peperoncino burrata e tartare di gambero rosso
@@ -81,17 +81,17 @@ fegatini pollo
 Cecina gamberi rossi pomodorini confit e ricotta
 Riso/ paccheri nero di seppia, gambero rosso e crema di cima di rapa
 Passatelli brodetto/ fumetto di pesce, cozze, vongole e gamberi crudi
-Cannolo al nero di seppia baccala  mantecato bottarga e limoni salati
+Cannolo al nero di seppia baccalaÂ  mantecato bottarga e limoni salati
 Panino mortadella crema parmigiano carciofo croccante e olio al tartufo
 Crema di patate carciofo fritto e bottarga
 Bicchiere composta di frutti di bosco, crema pasticciera al formaggio e lime, crumble
 Polenta Nero di seppia con calamaretti aglio olio e peperoncino con pomodorini gialli e zest di limone
-Polenta baccala  mantecato e zuppetta di vongole
-Passata di ceci, spinaci uvetta e pinoli e baccalÃalla piastra
+Polenta baccalaÂ  mantecato e zuppetta di vongole
+Passata di ceci, spinaci uvetta e pinoli e baccalÃalla piastra
 Risotto cavolo nero, gorgonzola/ fontina cozze
 Tonnarelli cacio pepe e cozze
 Tacos nduja fonduta di scamorza affumicata olive nere e scorza di limone/ cedro cicoria ripassata
-Tartina di polenta al nero di seppia e baccala  mantecato
+Tartina di polenta al nero di seppia e baccalaÂ  mantecato
 Tartina di polenta bianca e seppie
 Tartina di polenta polpo e sua mayonese
 Fegatini di pollo
@@ -113,7 +113,7 @@ Arancina sarde e finocchietto
 Risotto pecorino fichi e prosciutto croccante
 Pizza zucca provola affumicata/ gorgonzola e speck
 Pan di Spagna mousse allo yogurt composta di mango con crumble
-Sable' alla nocciola (doppio anello) bigne¨ chantilly e gianduia arachidi e mousse all'arancia
+Sable' alla nocciola (doppio anello) bigneÂ¨ chantilly e gianduia arachidi e mousse all'arancia
 Pizza provola affumicata crema di cipolla pecorino e pancetta
 Sorbetto melograno e mousse allo yogurt greco
 Zabaione salato mazzancolla al vapore cialda/ crumble capperi
@@ -226,7 +226,7 @@ Mousse di mozzarella di bufala con pomodorini secchi | http://blog.giallozaffera
 I rotolini di salmone su crema di avocado | http://www.gustissimo.it/ricette/antipasti-pesce/rotolini-di-salmone-su-crema-di-avocado.htm
 bicchierini italiani bufala rucola datterini #pinxos | http://lasalsaaurora.com/tag/rucola/
 Baked Meatballs with Mozzarella! Italian | http://www.southyourmouth.com/2015/05/baked-meatballs-with-mozzarella.html
-Ravioli al nero con baccala  mantecato e burro aromatico | http://www.conunpocodizucchero.it/2009/12/ravioli-al-nero-con-baccala-mantecato-e-burro-aromatico.html
+Ravioli al nero con baccalaÂ  mantecato e burro aromatico | http://www.conunpocodizucchero.it/2009/12/ravioli-al-nero-con-baccala-mantecato-e-burro-aromatico.html
 Ultra crispy baked potato | https://www.dinneratthezoo.com/baked-potato-wedges/
 Bayou Crab Chowder | http://www.akitchenhoorsadventures.com/bayou-crab-chowder/
 Summer mojitos / | http://pubx.co/qX5HbS
@@ -243,8 +243,8 @@ ravioli al pecorino di fossa e ricotta | http://www.cavolettodibruxelles.it/2005
 Mashed potatoes | http://tiphero.com/mashed-potato-cheese-bites/
 Pop corn cavolfiore
 Corn Ribs
-Pizza pesto di cavolo nero e nocciola con ÃÂÃÂ¢ÃÂÃÂÃÂÃÂnduja
+Pizza pesto di cavolo nero e nocciola con ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂnduja
 Gnocchi di patate dolci con carciofi e crema di parmigiano reggiano
-# last-complete: 2026-04-04 07:46
-Sgrafignoni â Gnocchi di Pangrattato
+Sgrafignoni Ã¢ÂÂ Gnocchi di Pangrattato
 Risotto con polpo
+# last-complete: 2026-04-05 09:25

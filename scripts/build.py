@@ -35,7 +35,6 @@ def categorize(title):
             return cat
     return "Antipasti & Stuzzichini"
 
-# ── MODIFICA 1: legge il file ricette/<slug>.txt se esiste ──────────────────
 def title_to_filename(title):
     t = title.lower()
     for a, b in [('à','a'),('á','a'),('â','a'),('ã','a'),('è','e'),('é','e'),('ê','e'),('ë','e'),
@@ -45,6 +44,7 @@ def title_to_filename(title):
     t = re.sub(r'[^a-z0-9\s-]', '', t)
     t = t.strip()
     t = re.sub(r'\s+', '-', t)
+    t = t[:100]  # tronca a 100 caratteri per evitare OSError filename too long
     return t + '.txt'
 
 def load_recipe_detail(title):
@@ -74,7 +74,6 @@ def load_recipe_detail(title):
     except Exception:
         pass
     return None
-# ───────────────────────────────────────────────────────────────────────────
 
 def parse_recipes(text):
     recipes = []
@@ -96,10 +95,8 @@ def parse_recipes(text):
             continue
         seen.add(key)
         cat = categorize(title)
-        # ── MODIFICA 1 (continua): aggiunge detail se presente ──
         detail = load_recipe_detail(title)
         recipes.append({"id": rid, "title": title, "cat": cat, "note": note, "detail": detail})
-        # ────────────────────────────────────────────────────────
         rid += 1
     return recipes
 
@@ -382,7 +379,6 @@ body {{
   color: var(--muted);
   font-style: italic;
 }}
-/* ── MODIFICA 2: stili ingredienti/procedimento nel modal ── */
 .modal-section-title {{
   font-family: 'DM Mono', monospace;
   font-size: 10px;
@@ -416,7 +412,6 @@ body {{
   color: #4A4540;
   white-space: pre-wrap;
 }}
-/* ─────────────────────────────────────────────────────────── */
 
 /* NO RESULTS */
 .no-results {{
@@ -581,8 +576,6 @@ function openModal(r) {{
   document.getElementById('modalCat').textContent = r.cat.toUpperCase();
   document.getElementById('modalTitle').textContent = r.title;
   const noteEl = document.getElementById('modalNote');
-
-  // ── MODIFICA 2: mostra detail se presente, altrimenti note come prima ──
   if (r.detail) {{
     let html = '';
     if (r.detail.ingredienti && r.detail.ingredienti.length > 0) {{
@@ -602,8 +595,6 @@ function openModal(r) {{
   }} else {{
     noteEl.innerHTML = `<p class="modal-empty">Nessuna nota aggiunta.</p>`;
   }}
-  // ──────────────────────────────────────────────────────────────────────
-
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }}

@@ -51,7 +51,6 @@ button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
 .divider { border: none; border-top: 1px solid #2e2c28; margin: 24px 0; }
 .note { font-size: 0.8rem; color: #6a6458; font-style: italic; }
 .hint { font-size: 0.78rem; color: #6a6458; margin-top: -10px; margin-bottom: 16px; font-style: italic; }
-#setupScreen, #mainScreen { display: none; }
 .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
 .tab {
   flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #2e2c28;
@@ -67,78 +66,66 @@ button:disabled { background: #4a4538; color: #6a6558; cursor: not-allowed; }
 <body>
 <div class="card">
 
-  <div id="setupScreen">
-    <h1>🔑 Setup iniziale</h1>
-    <p class="subtitle">Inserisci il tuo token GitHub. Viene salvato solo sul tuo dispositivo.</p>
-    <label>Token GitHub (ghp_...)</label>
-    <input type="password" id="tokenInput" placeholder="ghp_..." autocomplete="off">
-    <button onclick="saveToken()">Salva e continua →</button>
-    <div class="status" id="setupStatus"></div>
+  <h1>🍝 Gestisci Ricette</h1>
+  <p class="subtitle">Aggiungi una nuova ricetta o completa una esistente.</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('nuova', this)">+ Nuova ricetta</button>
+    <button class="tab" onclick="switchTab('completa', this)">✏️ Completa ricetta</button>
   </div>
 
-  <div id="mainScreen">
-    <h1>🍝 Gestisci Ricette</h1>
-    <p class="subtitle">Aggiungi una nuova ricetta o completa una esistente.</p>
+  <!-- TAB: NUOVA RICETTA -->
+  <div class="tab-content active" id="tab-nuova">
+    <label>Nome della ricetta *</label>
+    <input type="text" id="newTitle" placeholder="es. Risotto al tartufo" autocomplete="off">
 
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('nuova', this)">+ Nuova ricetta</button>
-      <button class="tab" onclick="switchTab('completa', this)">✏️ Completa ricetta</button>
-    </div>
+    <label>Ingredienti (opzionale)</label>
+    <textarea id="newIngredienti" placeholder="320g riso Carnaroli&#10;1 tartufo nero&#10;50g burro&#10;Parmigiano q.b."></textarea>
+    <p class="hint">Un ingrediente per riga</p>
 
-    <!-- TAB: NUOVA RICETTA -->
-    <div class="tab-content active" id="tab-nuova">
-      <label>Nome della ricetta *</label>
-      <input type="text" id="newTitle" placeholder="es. Risotto al tartufo" autocomplete="off">
+    <label>Procedimento (opzionale)</label>
+    <textarea id="newProcedimento" placeholder="Tostate il riso in padella...&#10;Aggiungete il brodo poco a poco..." style="min-height:120px"></textarea>
 
-      <label>Ingredienti (opzionale)</label>
-      <textarea id="newIngredienti" placeholder="320g riso Carnaroli&#10;1 tartufo nero&#10;50g burro&#10;Parmigiano q.b."></textarea>
-      <p class="hint">Un ingrediente per riga</p>
-
-      <label>Procedimento (opzionale)</label>
-      <textarea id="newProcedimento" placeholder="Tostate il riso in padella...&#10;Aggiungete il brodo poco a poco..." style="min-height:120px"></textarea>
-
-      <button id="btnNuova" onclick="addNewRecipe()">Aggiungi al sito →</button>
-    </div>
-
-    <!-- TAB: COMPLETA RICETTA ESISTENTE -->
-    <div class="tab-content" id="tab-completa">
-      <div id="loadingMsg" class="loading-recipes">Carico lista ricette...</div>
-
-      <div id="selectorsWrap" style="display:none">
-        <label>Categoria</label>
-        <select id="selectCat" onchange="filterByCategory()">
-          <option value="">— Seleziona categoria —</option>
-        </select>
-
-        <label>Ricetta</label>
-        <select id="selectRicetta" disabled>
-          <option value="">— Prima seleziona una categoria —</option>
-        </select>
-      </div>
-
-      <label style="margin-top:4px">Ingredienti</label>
-      <textarea id="existIngredienti" placeholder="200g tonno fresco&#10;Olio extravergine&#10;Limone"></textarea>
-      <p class="hint">Un ingrediente per riga</p>
-
-      <label>Procedimento</label>
-      <textarea id="existProcedimento" placeholder="Marinare il tonno per 30 minuti..." style="min-height:120px"></textarea>
-
-      <button id="btnCompleta" onclick="completeRecipe()">Salva ricetta →</button>
-    </div>
-
-    <button class="btn-secondary" onclick="resetToken()">⚙️ Cambia token</button>
-    <div class="status" id="status"></div>
-
-    <hr class="divider">
-    <p class="note">Il sito si aggiorna su <strong style="color:#e8a838">edoardobottai78.github.io/Ricette</strong> in ~60 secondi</p>
+    <button id="btnNuova" onclick="addNewRecipe()">Aggiungi al sito →</button>
   </div>
+
+  <!-- TAB: COMPLETA RICETTA ESISTENTE -->
+  <div class="tab-content" id="tab-completa">
+    <div id="loadingMsg" class="loading-recipes">Carico lista ricette...</div>
+
+    <div id="selectorsWrap" style="display:none">
+      <label>Categoria</label>
+      <select id="selectCat" onchange="filterByCategory()">
+        <option value="">— Seleziona categoria —</option>
+      </select>
+
+      <label>Ricetta</label>
+      <select id="selectRicetta" disabled>
+        <option value="">— Prima seleziona una categoria —</option>
+      </select>
+    </div>
+
+    <label style="margin-top:4px">Ingredienti</label>
+    <textarea id="existIngredienti" placeholder="200g tonno fresco&#10;Olio extravergine&#10;Limone"></textarea>
+    <p class="hint">Un ingrediente per riga</p>
+
+    <label>Procedimento</label>
+    <textarea id="existProcedimento" placeholder="Marinare il tonno per 30 minuti..." style="min-height:120px"></textarea>
+
+    <button id="btnCompleta" onclick="completeRecipe()">Salva ricetta →</button>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <hr class="divider">
+  <p class="note">Il sito si aggiorna su <strong style="color:#e8a838">edoardobottai78.github.io/Ricette</strong> in ~60 secondi</p>
 
 </div>
 
 <script>
 const OWNER = 'edoardobottai78';
 const REPO  = 'Ricette';
-const TOKEN_KEY = 'gh_token_ricette';
+const TOKEN = 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; // ← sostituisci con il tuo ghp_...
 
 const CATEGORY_RULES = [
   { cat: 'Dolci & Dessert',         re: /torta|dolce|cupcake|biscotto|castagnaccio|sablé|sable|panna cotta|financier|cremoso|mousse|crumble|crostata|frolla|sorbetto|pan di spagna|bavarese|chantilly|zabaione dolce|bicchiere composta|bicchiere di frutti/ },
@@ -161,19 +148,26 @@ function categorize(title) {
 
 let allRecipes = [];
 
-function init() {
-  const token = localStorage.getItem(TOKEN_KEY);
-  document.getElementById(token ? 'mainScreen' : 'setupScreen').style.display = 'block';
-  if (token) loadRecipes();
+async function githubRequest(path, method, body) {
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+    method,
+    headers: {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `Errore HTTP ${res.status}`);
+  }
+  return res.json();
 }
 
 async function loadRecipes() {
   try {
-    const token = localStorage.getItem(TOKEN_KEY);
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/ricette.txt`, {
-      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    const data = await res.json();
+    const data = await githubRequest('ricette.txt', 'GET');
     const text = atob(data.content.replace(/\n/g, ''));
     allRecipes = [];
     for (const line of text.split('\n')) {
@@ -196,14 +190,13 @@ async function loadRecipes() {
     document.getElementById('loadingMsg').style.display = 'none';
     document.getElementById('selectorsWrap').style.display = 'block';
   } catch(e) {
-    document.getElementById('loadingMsg').textContent = 'Errore nel caricamento ricette.';
+    document.getElementById('loadingMsg').textContent = 'Errore nel caricamento ricette: ' + e.message;
   }
 }
 
 function filterByCategory() {
   const cat = document.getElementById('selectCat').value;
   const ricSel = document.getElementById('selectRicetta');
-  ricSel.innerHTML = '';
   if (!cat) {
     ricSel.innerHTML = '<option value="">— Prima seleziona una categoria —</option>';
     ricSel.disabled = true;
@@ -217,24 +210,6 @@ function filterByCategory() {
     ricSel.appendChild(opt);
   });
   ricSel.disabled = false;
-}
-
-function saveToken() {
-  const token = document.getElementById('tokenInput').value.trim();
-  if (!token.startsWith('ghp_')) {
-    showSetupStatus('Token non valido. Deve iniziare con ghp_', 'error'); return;
-  }
-  localStorage.setItem(TOKEN_KEY, token);
-  document.getElementById('setupScreen').style.display = 'none';
-  document.getElementById('mainScreen').style.display = 'block';
-  loadRecipes();
-}
-
-function resetToken() {
-  localStorage.removeItem(TOKEN_KEY);
-  document.getElementById('mainScreen').style.display = 'none';
-  document.getElementById('setupScreen').style.display = 'block';
-  document.getElementById('tokenInput').value = '';
 }
 
 function switchTab(tab, btn) {
@@ -269,24 +244,6 @@ function buildRecipeContent(ingredienti, procedimento) {
     content += procText + '\n';
   }
   return content;
-}
-
-async function githubRequest(path, method, body) {
-  const token = localStorage.getItem(TOKEN_KEY);
-  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
-    method,
-    headers: {
-      'Authorization': `token ${token}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json'
-    },
-    body: body ? JSON.stringify(body) : undefined
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || `Errore HTTP ${res.status}`);
-  }
-  return res.json();
 }
 
 async function addNewRecipe() {
@@ -342,7 +299,6 @@ async function completeRecipe() {
   btn.disabled = true;
   showStatus('Salvo ricetta...', 'loading');
   try {
-    // Step 1: salva il file ricette/<slug>.txt
     const filename = 'ricette/' + titleToFilename(title);
     let sha = undefined;
     try {
@@ -357,7 +313,6 @@ async function completeRecipe() {
     if (sha) body.sha = sha;
     await githubRequest(filename, 'PUT', body);
 
-    // Step 2: touch ricette.txt per triggerare il build automatico
     showStatus('Aggiorno sito...', 'loading');
     const txtData = await githubRequest('ricette.txt', 'GET');
     const txtContent = atob(txtData.content.replace(/\n/g, ''));
@@ -386,12 +341,8 @@ function showStatus(msg, type) {
   const el = document.getElementById('status');
   el.textContent = msg; el.className = 'status ' + type;
 }
-function showSetupStatus(msg, type) {
-  const el = document.getElementById('setupStatus');
-  el.textContent = msg; el.className = 'status ' + type;
-}
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', loadRecipes);
 </script>
 </body>
 </html>

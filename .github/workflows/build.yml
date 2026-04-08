@@ -7,6 +7,10 @@ on:
       - 'ricette/**'
   workflow_dispatch:
 
+concurrency:
+  group: build-ricette
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -256,5 +256,4 @@ Polpette di tofu profumate
 Risotto peperone e crema di pecorino
 Risotto melograno e pere
 Chitarra fave guanciale pecorino
-# last-complete: 2026-04-12 21:03
-Noodle spaziali
+# last-complete: 2026-04-24 08:40

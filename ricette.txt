@@ -6,8 +6,6 @@ Caponata di tonno
 Gamberi pasta kalataifi al forno
 Cous cous di pesce
 Focaccia normale
-Formaggi
-Salumi
 Cornetti salati ripieni
 Torta rustica
 Focaccia burrata alici e capperi
@@ -27,7 +25,6 @@ Cupcake
 Chowder grab
 Tapas formaggio di capra con marmellata fragole
 Jarret du porc
-Tapas
 Bocconcini di pollo marinati soia e zenzero, finto fritto con mayo al wasabi
 Zuppetta patate vongole cozze e fasolari
 Filetto di maialino sus vid con salsa al mango piccante e insalata di cavolo cappuccio
@@ -76,8 +73,7 @@ Zuppa piccante patate ceci e polpo
 Minestra riso latte castagne/ risotto alle castagne
 Risotto salsiccia Lucanega e porro fritto
 Cavolo cappuccio viola polpo grigliato mela avocado dressing limone olio e senape
-Castagnaccio: 500G farina castagne, 650 cl acqua, 1,5 bicchiere di latte, 40 gr olio una volta messo in teglia. 170 non ventilato per 30-35 min
-fegatini pollo
+Castagnaccio
 Cecina gamberi rossi pomodorini confit e ricotta
 Riso/ paccheri nero di seppia, gambero rosso e crema di cima di rapa
 Passatelli brodetto/ fumetto di pesce, cozze, vongole e gamberi crudi
@@ -133,34 +129,21 @@ Pizza crema di zucca cavolo nero ripassato mozzarella e lardo di colonnata
 Cozze pesto pecorino e pane carasau
 Frolla al cioccolato marmellata agrumi crema e frutti di bosco
 Ostrica vapore patata e friggitello
-Chili con carne | https://ricette.giallozafferano.it/Chili-con-carne.html
 Chili vegetariano con fagioli neri e peperoni
-originale salsa ponzu | https://www.nonnapaperina.it/2019/05/profumi-doriente-con-loriginale-salsa-ponzu/
 Pizza Bonci | https://blog.giallozafferano.it/dulcisinforno/pizza-bonci/
 Zuppetta di fragole con zabaione al marsala e crumble al pepe di Sichuan. | https://www.sicilianicreativiincucina.it/zuppetta-di-fragole-con-semifreddo-allo-zabaione-di-santin/
-Salsa ponzu: ricetta ed ingredienti per farla in casa | https://www.tuttogreen.it/salsa-ponzu-ricetta-ed-ingredienti/
-Ricetta Polpette di cavolfiore | https://www.buonissimo.it/lericette/polpette-di-cavolfiore-284300
 Budino ai semi di chia | https://www.fattoincasadabenedetta.it/ricetta/budino-ai-semi-di-chia/
-Ricetta Chia pudding | https://ricette.giallozafferano.it/Chia-pudding.html
-10 ricette veloci con i semi di chia per utilizzarli in cucina | https://www.viversano.net/cucinare/consigli-cucina/10-ricette-semi-di-chia/
-Ricetta Babaganoush | https://ricette.giallozafferano.it/Babaganoush.html
 Risotto ai carciofi e vongole | https://blog.giallozafferano.it/cucinaconmiasorella/risotto-ai-carciofi-e-vongole/
 SEPPIE CON CIME DI RAPA | https://www.ciclistaaifornelli.it/seppie-con-cime-di-rapa/
 Smoked Pork Chili Verde | https://www.pinterest.com
 Polpo e patate: polpo in sous-vide con maionese di acqua di polpo | https://bluaragosta.it/2020/07/polpo-e-patate-polpo-in-sous-vide-con-maionese-di-acqua-di-polpo.html
-Pancake salati: la ricetta perfetta per una cena veloce | https://www.cookist.it/pancake-salati-prosciutto-e-formaggio/
 cozze al Gorgonzola | https://reportergourmet.com/it/news/5716-come-preparare-le-cozze-al-gorgonzola-la-ricetta-che-osa-di-helene-darroze
-Crema di Parmigiano | https://www.lacucinaitaliana.it/ricetta/salse-e-sughi/crema-di-parmigiano/
-Perle di parmigiano | https://fabbrypassioneincucina.blogspot.com/2021/04/perle-di-parmigiano.html
 Pollo alla pizzaiola in vaso cottura | https://blog.giallozafferano.it/neltegamesulfuoco/pollo-alla-pizzaiola-in-vaso-cottura/
-Zuppa cavolo nero e zucca, ricetta invernale | https://blog.giallozafferano.it/ortaggichepassionebysara/zuppa-cavolo-nero-e-zucca-ricetta/
-La pasta e fagioli con il Bimby | https://www.cucchiaio.it/ricetta/pasta-e-fagioli-con-il-bimby/
 The Japanese Yuzu Whiskey Sour | https://mybartender.com/drinks/japanese-cocktails/
 Polpo scottato con riso aromatico e crema di patate dolci | https://gnambox.com/ricette/ingredienti/pasta-e-riso/polpo-scottato-riso-aromatico-crema-patate-dolci-al-curry/
 RISOTTO AL LATTE DI COCCO CON GAMBERI PICCANTI | https://www.contemporaneofood.com/risotto-al-latte-di-cocco-con-gamberi-piccanti-e-menta-fritta/
 Spaghettoni cacio, pepe, limone e acciughe | https://www.youtube.com/watch?v=0xngiRKz2SY
 La bisque di crostacei | https://www.cucchiaio.it/ricetta/bisque-di-crostacei/
-Ricetta Crema al Parmigiano | https://ricette.giallozafferano.it/Crema-al-Parmigiano.html
 chili con carne perfetto | https://winedharma.com/ricette/come-preparare-il-chili-con-carne-perfetto-la-ricetta-messicana/
 Maionese di polpo | https://www.cookist.it/maionese-di-polpo/
 TAGLIATELLE AI FUNGHI PORCINI CON SALSICCE E SALSA DI CACIOCAVALLO | https://blog.giallozafferano.it/martanoskitchen/tagliatelle-autunnali/
@@ -170,36 +153,25 @@ jalapeno jelly | https://www.makingcentsmatter.com/how-to-make-jalapeno-jelly/
 Stinco alla birra | https://www.chefincamicia.com/ricette/stinco-alla-birra
 Jalapeno Pepper Jam | https://www.pinterest.com
 Mojito shots - Gelatine morbide al Mojito | https://blog.giallozafferano.it/lifferia/mojito-shots/
-Gelatine al mojito | https://blog.giallozafferano.it/incucinaconpeppa/gelatine-al-mojito-ricetta-semplice/
-Ricetta Salsa agrodolce piccante thai | https://www.piccolericette.net/piccolericette/recipe/salsa-agrodolce-piccante-thai/
 CECINA Toscana | https://blog.giallozafferano.it/studentiaifornelli/cecina-toscana/
 leche de tigre | https://www.pinterest.com
 Gelatine di Aperol spritz | https://www.cookaround.com/ricetta/Gelatine-di-Aperol-spritz.html
 Tortino di alici e melanzane | https://blog.giallozafferano.it/ilchiccodimais/tortino-di-alici-e-melanzane-ricetta-semplice/
-Gelatine Spritz | https://www.pinterest.com
 Irish stew | https://ricette.giallozafferano.it/Irish-stew.html
 Uovo barzotto, vellutata di parmigiano, pistacchio, crumble piccante, speck | https://www.contemporaneofood.com/uovo-barzotto-su-vellutata-di-parmigiano-pistacchio-di-bronte-e-crumble-piccante-speck/
 Nachos di piadina | https://blog.giallozafferano.it/curmifood/nachos-di-piadina/
 Linguine con crema di cipolle, polvere di taralli in acciuga e chips di speck | https://altacucina.co/recipes/linguine-con-crema-di-cipolle-polvere-di-taralli-in-acciuga-e-chips-di-speck
-Ricetta Pancakes Salati | https://www.pinterest.com
 Pancakes salati farciti con prosciutto e formaggio filante | https://www.pinterest.com
-Pancake salati | https://www.tavolartegusto.it/ricetta/pancake-salati/
 Polpette saporite di cavolo nero | https://www.cucinapaesana.com/polpette-saporite-di-cavolo-nero-una-ricetta-incredibile-e-definitiva/
 Fonduta di parmigiano senza panna | https://www.foodblog.it/fonduta-di-parmigiano-senza-panna-ricetta/
 Fonduta di scamorza | https://www.fragolosi.it/salse-e-sughi/fonduta-di-scamorza/
 Spezzatino di manzo al vino rosso | https://blog.giallozafferano.it/dulcisinforno/spezzatino-di-manzo/
-Ricetta Salsa agrodolce | https://ricette.giallozafferano.it/Salsa-agrodolce.html
 Estratto di peperoni | https://www.lamboseeds.com/ricette/peperoni/estratto-di-peperoni/
-baguette ricetta | https://www.scattidigusto.it/2015/03/25/baguette-ricetta/
 Polpette di fagioli cannellini | https://www.ilgattoghiotto.it/2021/antipasti/polpette-di-cannellini-e-olive-taggiasche-con-yogurt-greco-e-salsa-ai-capperi/
 polpette di palamita alla siciliana | https://www.ricettedietagrupposanguigno.com/recipe/polpette-palamita-alla-siciliana/
-Salsa teriyaki ricetta | https://www.cucchiaio.it/ricetta/salsa-teriyaki/
-Descrizione foto | https://www.paginegialle.it/magazine/food/le-10-migliori-salse-giapponesi-1581
 gelatina di cedro | https://www.ricettedietagrupposanguigno.com/recipe/gelatina-di-cedro/
-Impasto per la pizza ricetta base | https://www.cookaround.com/ricetta/Impasto-per-la-pizza.html
 Ravioli al formaggio di fossa con salsa di pere e aceto balsamico | http://blog.giallozafferano.it/laforchettadargento/ravioli-formaggio-di-fossa-con-salsa-pere-aceto-balsamico/
 I fluffy pancake | https://ricette.giallozafferano.it/Fluffy-pancake.html
-Come preparare il ceviche peruviano | https://www.finedininglovers.it/ricette/ceviche-peruviano-ricetta
 Ceviche e leche de tigre | https://altacucina.co/recipes/ceviche-leche-de-tigre
 Caponata di melanzane e tonno | https://blog.giallozafferano.it/toniaincucina/caponata-di-melanzane-e-tonno/
 Frozen Aperol Spritz | https://www.doublethespoonfuls.com/recipes/frozen-aperol-spritz
@@ -219,7 +191,6 @@ Shrimp Tacos with Boom Boom Sauce | http://www.itisakeeper.com/5955/shrimp-tacos
 Black Sesame Seared Ahi Tuna Tacos | http://yes-moreplease.com/2015/08/black-sesame-seared-ahi-tuna-tacos/
 Quesadillas With Feta, Hummus And Avocado | http://nomnomnetwork.com/cheese/quesadillas-with-feta-hummus-and-avocado/
 Spiedini di gamberi al cumino | http://www.brododicoccole.com/spiedini-di-gamberi-al-cumino/
-Pretzel ricetta | http://www.cucchiaio.it/ricetta/pretzel/
 Baked Meatballs with Mozzarella! | http://www.southyourmouth.com/2015/05/baked-meatballs-with-mozzarella.html
 Polenta con calamaretti nel bicchiere | http://ricette.donnamoderna.com/polenta-con-calamaretti-nel-bicchiere/
 Mousse di mozzarella di bufala con pomodorini secchi | http://blog.giallozafferano.it/odoredifelicita/mousse-di-mozzarella-con-pomodori-secchi/
@@ -256,9 +227,6 @@ Risotto peperone e crema di pecorino
 Risotto melograno e pere
 Sofficini senza glutine
 Noodle spaziali
-Noodle spaziali
-Noodle spaziali
 Chutney Mango
 Salsa Agro-Piccante
 Involtini di pesce spada con salsa al mango
-# last-complete: 2026-05-16 17:06

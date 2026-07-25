@@ -232,4 +232,5 @@ Salsa Agro-Piccante
 Involtini di pesce spada con salsa al mango
 Costine BBQ
 Gamberoni con maionese al mango e pasta kataifi
-# last-complete: 2026-07-03 18:49
+Olive croccanti in friggitrice ad aria (o forno)
+# last-complete: 2026-07-25 19:25

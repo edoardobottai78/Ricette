@@ -233,4 +233,5 @@ Involtini di pesce spada con salsa al mango
 Costine BBQ
 Gamberoni con maionese al mango e pasta kataifi
 Olive croccanti in friggitrice ad aria (o forno)
-# last-complete: 2026-07-25 19:25
+Bon bon feta
+# last-complete: 2026-08-30 08:14
